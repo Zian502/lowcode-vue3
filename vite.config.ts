@@ -15,6 +15,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   console.log(command, mode);
 
   return {
+    base: '/lowcode-vue3/',
     resolve: {
       alias: [
         // /@/xxxx => src/xxxx
@@ -44,7 +45,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       brotliSize: false,
       chunkSizeWarningLimit: 2000,
       outDir,
-      assetsDir: 'lowcode-vue3/assets',
     }
   }
 }
