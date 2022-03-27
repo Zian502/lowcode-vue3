@@ -1,7 +1,8 @@
 {
   "name": "lowcode-vue3",
-  "private": true,
+  "private": false,
   "version": "0.0.1",
+  "description": "简易版低代码平台架子",
   "author": {
     "name": "Zian502",
     "email": "yuanzhain@dingtalk.com"
@@ -15,7 +16,15 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "build:doc": "npm run build --dest docs --mode development",
     "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Zian502/lowcode-vue3.git"
+  },
+  "engines": {
+    "node": "^12 || >=14"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
