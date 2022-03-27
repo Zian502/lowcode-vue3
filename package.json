@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "build:doc": "npm run build --dest docs --mode development",
+    "build:doc": "vue-tsc --noEmit && vite build --mode build:doc",
     "preview": "vite preview"
   },
   "repository": {

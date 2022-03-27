@@ -11,6 +11,7 @@ function pathResolve(dir: string) {
 // https://vitejs.dev/config/
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   const isBuild = command === 'build';
+  const outDir = mode === 'build:doc' ? 'docs' : 'dist';
   console.log(command, mode);
 
   return {
@@ -42,6 +43,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       },
       brotliSize: false,
       chunkSizeWarningLimit: 2000,
+      outDir,
+      assetsDir: 'lowcode-vue3/assets',
     }
   }
 }
