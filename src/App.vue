@@ -1,6 +1,6 @@
 
 <template>
-  <ConfigProvider :locale="zhCN">
+  <ConfigProvider>
     <router-view />
   </ConfigProvider>
 </template>

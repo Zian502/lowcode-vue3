@@ -1,8 +1,8 @@
-import { ConfigEnv, UserConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { ConfigEnv, UserConfig } from 'vite';
 import { resolve } from 'path';
 import { createVitePlugins } from './config/vite/plugins';
 import { generateModifyVars } from './config/themeConfig';
+import { configManualChunk } from './config/vite/optimizer';
 
 function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir);
@@ -11,6 +11,8 @@ function pathResolve(dir: string) {
 // https://vitejs.dev/config/
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   const isBuild = command === 'build';
+  console.log(command, mode);
+
   return {
     resolve: {
       alias: [
@@ -31,6 +33,16 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         },
       },
     },
+    build: {
+      target: 'es2015',
+      rollupOptions: {
+        output: {
+          manualChunks: configManualChunk,
+        },
+      },
+      brotliSize: false,
+      chunkSizeWarningLimit: 2000,
+    }
   }
 }
 

@@ -46,7 +46,7 @@ export const useSchemesStore = defineStore({
     getBasicWidgets():any {
       return this.basicWidgets
     },
-    getGenerateWidgets(value):any {
+    getGenerateWidgets():any {
       return this.generateWidgets
     },
 
