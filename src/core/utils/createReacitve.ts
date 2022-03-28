@@ -1,3 +1,7 @@
+import {
+  reactive,
+  toRefs
+} from 'vue';
 
 const createReactive = ({compProps = {}, compMock = {}, compStyles = {}} = {}) => {
 

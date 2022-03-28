@@ -45,5 +45,6 @@ export default defineComponent({
 <style lang="less" scoped>
 .right-aside-container{
   flex: 1 0 auto;
+  width: 33%;
 }
 </style>

@@ -145,6 +145,7 @@ export default defineComponent({
   background: #fff;
   flex-basis: 33%;
   height: 100%;
+  padding: 20px 20px;
   .drag-generate-widget{
     width: 100%;
     height: 100%;
@@ -157,6 +158,7 @@ export default defineComponent({
   .drag-generate-widget-item-child {
     display: flex;
     flex: 1 0 auto;
+    margin-bottom: 10px;
   }
   .row {
     display: flex;
