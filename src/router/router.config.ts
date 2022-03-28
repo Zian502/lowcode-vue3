@@ -3,14 +3,14 @@ import type { RouteRecordRaw } from 'vue-router';
 import BasicLayout from '/@/layouts/index.vue';
 
 const constantRoutes: RouteRecordRaw[] = [{
-  path: '/lowcode',
+  path: '/lowcode-vue3',
   name: 'lowcode',
   component: BasicLayout,
   meta: {
     title: '低代码'
   },
   children: [{
-    path: '/lowcode/worksheet',
+    path: '/lowcode-vue3/lowcode/worksheet',
     name: 'worksheet',
     component: () => import("/@/pages/worksheet/index.vue"),
     meta: {
