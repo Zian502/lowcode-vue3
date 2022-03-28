@@ -1,12 +1,12 @@
 <template>
   <div class="renderer-container">
-    <component :is="compName" />
+    <component :is="is" :compProps="config.props" :compMock="config.mock" :compStyles="config.styles" />
   </div>
 </template>
 <script>
 export default {
   props: {
-    compName: {
+    is: {
       type: String,
       default: ''
     },

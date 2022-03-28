@@ -2,8 +2,9 @@
   <div class="mid-aside-container">
     <draggable 
       class="drag-generate-widget"
-      v-model="generateWidgets" 
-      tag="div" 
+      v-model="generateWidgets"
+      :component-data="{name: 'childs'}"
+      tag="transition-group" 
       ghost-class="ghost"
       chosen-class="chosen"
       :group="{ name: 'lowcode'}"
@@ -11,22 +12,21 @@
       @add="handleAdd"
       @end="handleEnd"
     >
-        <template #item="items">
+        <template #item="{element: item}">
           <div class="drag-generate-widget-item">
             <draggable
-              v-model="items.element.childs"
+              v-model="item.childs"
               tag="div" 
               ghost-class="ghost"
               chosen-class="chosen"
               :group="{ name: 'lowcode'}"
-              class="row"
               @start="handleChildStart"
               @add="handleChildAdd"
               @end="handleChildEnd"
               >
-                <template #item="{element}">
+                <template #item="{element: child}">
                     <div class="drag-generate-widget-item-child">
-                      <Renderer :compName="element.compName" :config="element.config" />
+                      <Renderer :is="child.components" :config="child.config" />
                     </div> 
                 </template>
             </draggable>
@@ -48,7 +48,8 @@ export default defineComponent({
   setup(props) {
     
     let data = reactive({
-      generateWidgets: []
+      generateWidgets: [],
+      recordWidgets: [],
     });
 
     let dataSource = ref([]);
@@ -86,15 +87,17 @@ export default defineComponent({
       })
     }
 
-    const handleStart = () => {
+    const handleStart = (e) => {
       console.log('start')
+      const oldIndex = e.oldIndex;
+      const newIndex = e.newIndex;
+      data.recordWidgets = dataSource.value[oldIndex];
       // _insertNode();
     }
 
     const handleAdd = (e) => {
       console.log('add')
       console.log(e)
-      console.log('dataSource', dataSource)
       const oldIndex = e.oldIndex;
       const newIndex = e.newIndex;
       const obj = {
@@ -102,7 +105,6 @@ export default defineComponent({
         id: Math.random(),
         childs: [],
       };
-      console.log('e.item._underlying_vm_', e.item._underlying_vm_)
       // obj.childs.push({ ...e.item._underlying_vm_ });
       obj.childs.push({...dataSource.value[oldIndex]})
       data.generateWidgets.splice(newIndex, 0, obj); //
@@ -111,7 +113,7 @@ export default defineComponent({
 
     const handleEnd = () => {
       console.log('end')
-      _deleteNode();
+      // _deleteNode();
     }
 
     const handleChildStart = () => {
@@ -119,11 +121,11 @@ export default defineComponent({
     }
 
     const handleChildAdd = () => {
-       _deleteNode();
+      //  _deleteNode();
     }
 
     const handleChildEnd = () => {
-      _deleteNode();
+      // _deleteNode();
     }
 
     return {

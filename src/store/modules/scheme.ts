@@ -18,26 +18,26 @@ export const useSchemesStore = defineStore({
       {
         id: 0,
         name: '输入框',
-        compName: Input,
         type: 'basic',
         icon: '',
-        config: inputConf
+        config: inputConf.default,
+        components: Input,
       },
       {
         id: 1,
         name: '单选框',
-        compName: Radio,
         type: 'basic',
         icon: '',
-        config: radioConf
+        config: radioConf.default,
+        components: Radio,
       },
       {
         id: 2,
         name: '选择器',
-        compName: Select,
         type: 'basic',
         icon: '',
-        config: selectConf
+        config: selectConf.default,
+        components: Select,
       }
     ],
     generateWidgets: []

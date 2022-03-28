@@ -1,20 +1,52 @@
 <template>
   <div class="basic-input-container">
-    <Select />
+    <a-select 
+      v-model:value="value" 
+      :defaultValue="defaultValue"
+      :allowClear="allowClear"
+      :style="styles"
+      >
+      <a-select-option :value="item.value" v-for="(item) in defaultList" :key="item.value">
+        {{item.label}}
+      </a-select-option>
+    </a-select>
   </div>
 </template>
 <script lang="ts">
-import { Select } from 'ant-design-vue';
+import createReactive from '/@/core//utils/createReacitve'
+
 export default defineComponent({
-  components:{
-    Select,
+  props: {
+    compProps: {
+      type: Object,
+      default: {}
+    },
+    compMock: {
+      type: Object,
+      default: {}
+    },
+    compStyles: {
+      type: Object,
+      default: {}
+    }
   },
-  setup() {
-    
+  setup(props) {
+    const {compProps, compMock, compStyles } = props;
+    let data:any = createReactive({
+      compProps,
+      compMock,
+      compStyles,
+    });
+
+    return {
+      ...toRefs(data),
+    }
   },
 })
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+.basic-input-container{
+  width: 100%;
+}
 </style>

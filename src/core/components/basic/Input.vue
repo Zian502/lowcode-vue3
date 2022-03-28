@@ -1,16 +1,53 @@
 <template>
   <div class="basic-input-container">
-    <Input />
+    <template v-if="type === 'input'">
+      <a-input 
+        v-model:value="value"
+        :defaultValue="defaultValue"
+        :size="size" 
+        :placeholder="placeholder"
+        :auto-size="autoSize"
+      />
+    </template>
+    <template v-if="type === 'textarea'">
+      <a-textarea
+        v-model:value="value"
+        :defaultValue="defaultValue"
+        :placeholder="placeholder"
+        :auto-size="autoSize"
+      />
+    </template>
   </div>
 </template>
 <script lang="ts">
-import { Input } from 'ant-design-vue';
+import createReactive from '/@/core//utils/createReacitve'
+
 export default defineComponent({
-  components:{
-    Input,
+  props: {
+    compProps: {
+      type: Array,
+      default: {}
+    },
+    compMock: {
+      type: Object,
+      default: {}
+    },
+    compStyles: {
+      type: Object,
+      default: {}
+    }
   },
-  setup() {
-    
+  setup(props) {
+    const {compProps, compMock, compStyles } = props;
+    let data:any = createReactive({
+      compProps,
+      compMock,
+      compStyles,
+    });
+
+    return {
+      ...toRefs(data),
+    }
   },
 })
 </script>
