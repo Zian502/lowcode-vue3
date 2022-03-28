@@ -47,7 +47,7 @@ export default defineComponent({
   },
   setup(props) {
     const {compProps, compMock, compStyles } = props;
-    let data:any = createReactive({
+    let data = createReactive({
       compProps,
       compMock,
       compStyles,
@@ -59,7 +59,11 @@ export default defineComponent({
     }
 
     return {
-      ...toRefs(data),
+      value: toRefs(data).value,
+      defaultValue: toRefs(data).defaultValue,
+      defaultList: toRefs(data).defaultList,
+      size: toRefs(data).size,
+      buttonStyle: toRefs(data).buttonStyle,
       handleChange,
     }
   },
