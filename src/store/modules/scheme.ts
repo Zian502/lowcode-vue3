@@ -3,12 +3,14 @@ import { store } from '/@/store';
 import { 
   inputConf, 
   radioConf,
-  selectConf
+  selectConf,
+  switchConf,
 } from '/@/core/config';
 import{
   Input,
   Radio,
   Select,
+  Switch,
 } from '/@/core/components/index';
 
 export const useSchemesStore = defineStore({
@@ -20,7 +22,7 @@ export const useSchemesStore = defineStore({
         name: '输入框',
         type: 'basic',
         icon: '',
-        config: inputConf.default,
+        options: inputConf.default,
         components: Input,
       },
       {
@@ -28,7 +30,7 @@ export const useSchemesStore = defineStore({
         name: '单选框',
         type: 'basic',
         icon: '',
-        config: radioConf.default,
+        options: radioConf.default,
         components: Radio,
       },
       {
@@ -36,8 +38,16 @@ export const useSchemesStore = defineStore({
         name: '选择器',
         type: 'basic',
         icon: '',
-        config: selectConf.default,
+        options: selectConf.default,
         components: Select,
+      },
+      {
+        index: 3,
+        name: '开关',
+        type: 'basic',
+        icon: '',
+        options: switchConf.default,
+        components: Switch,
       }
     ],
     generateWidgets: []

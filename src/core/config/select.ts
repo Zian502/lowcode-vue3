@@ -5,7 +5,7 @@ export default {
   ...common,
   props: {
     value: '',
-    allowClear: true,
+    allowClear: false,
   },
   mock: {
     defaultValue: '',
@@ -19,5 +19,8 @@ export default {
         label: '否'
       }
     ]
+  },
+  styles:{
+    width: '100%'
   }
 }

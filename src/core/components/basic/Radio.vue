@@ -1,5 +1,5 @@
 <template>
-  <div class="basic-input-container">
+  <div class="basic-radio-container">
     <a-radio-group 
       v-model:value="value" 
       :defaultValue="defaultValue"

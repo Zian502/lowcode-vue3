@@ -14,5 +14,8 @@ export default {
   },
   mock: {
     defaultValue: '',
+  },
+  styles:{
+    width: '100%'
   }
 }

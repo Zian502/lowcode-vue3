@@ -15,6 +15,7 @@ declare module 'vue' {
     ARow: typeof import('ant-design-vue/es')['Row']
     ASelect: typeof import('ant-design-vue/es')['Select']
     ASelectOption: typeof import('ant-design-vue/es')['SelectOption']
+    ASwitch: typeof import('ant-design-vue/es')['Switch']
     ATextarea: typeof import('ant-design-vue/es')['Textarea']
     Input: typeof import('./core/components/basic/Input.vue')['default']
     LeftAside: typeof import('./pages/worksheet/components/leftAside.vue')['default']
@@ -24,6 +25,7 @@ declare module 'vue' {
     Renderer: typeof import('./core/renderer/renderer.vue')['default']
     RightAside: typeof import('./pages/worksheet/components/rightAside.vue')['default']
     Select: typeof import('./core/components/basic/Select.vue')['default']
+    Switch: typeof import('./core/components/basic/Switch.vue')['default']
   }
 }
 

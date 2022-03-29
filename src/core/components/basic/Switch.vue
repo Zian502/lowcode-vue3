@@ -1,15 +1,13 @@
 <template>
-  <div class="basic-select-container">
-    <a-select 
-      v-model:value="value" 
-      :defaultValue="defaultValue"
-      :allowClear="allowClear"
+  <div class="basic-switch-container">
+    <a-switch
+      v-model:checked="checked" 
+      :size="size"
+      :disabled="disabled"
+      :loading="loading"
+      :autofocus="autofocus"
       :style="styles"
-      >
-      <a-select-option :value="item.value" v-for="(item) in defaultList" :key="item.value">
-        {{item.label}}
-      </a-select-option>
-    </a-select>
+    />
   </div>
 </template>
 <script lang="ts">
@@ -39,10 +37,11 @@ export default defineComponent({
     });
 
     return {
-      value: toRefs(data).value,
-      defaultValue:toRefs(data).defaultValue,
-      defaultList: toRefs(data).defaultList,
-      allowClear: toRefs(data).allowClear,
+      checked: toRefs(data).checked,
+      size:toRefs(data).size,
+      disabled: toRefs(data).disabled,
+      loading: toRefs(data).loading,
+      autofocus: toRefs(data).autofocus,
       styles: toRefs(data).styles,
     }
   },

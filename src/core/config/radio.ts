@@ -5,8 +5,9 @@ export default {
   ...common,
   props: {
     value: '',
-    size: 'large',
-    buttonStyle: 'outline'
+    size: 'default',
+    buttonStyle: 'outline',
+    optionType: 'default'
   },
   mock:{
     defaultValue: '',
@@ -20,5 +21,8 @@ export default {
         label: '否'
       }
     ]
+  },
+  styles:{
+    width: '100%'
   }
 }

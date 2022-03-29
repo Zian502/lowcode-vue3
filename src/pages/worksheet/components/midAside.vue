@@ -1,70 +1,79 @@
 <template>
   <div class="mid-aside-container">
-    <a-row :gutter="16">
-      <draggable 
-        class="generate-widget"
-        v-model="generateWidgets"
-        ghost-class="ghost"
-        chosen-class="chosen"
-        :group="{ name: 'lowcode'}"
-        item-key="id"
-        @start="handleStart"
-        @add="handleAdd"
-        @end="handleEnd"
-      >
-        <template #item="{element: item}">
-            <draggable
-              v-model="item.childs"
-              ghost-class="ghost"
-              chosen-class="chosen"
-              :group="{ name: 'lowcode'}"
-              item-key="id"
-              @start="handleChildStart"
-              @add="handleChildAdd"
-              @end="handleChildEnd"
-              class="row"
-              >
-                <template #item="{element: child}">
-                    <a-col :span="12">
-                      <div class="renderer-container">
-                        <Renderer :is="child.components" :config="child.config" />
-                      </div>
-                    </a-col> 
-                </template>
-            </draggable>
-        </template> 
-      </draggable>  
-    </a-row>  
+    <draggable 
+      class="generate-widget"
+      v-model="worksheetData.widgets"
+      ghost-class="ghost"
+      chosen-class="chosen"
+      :group="{ name: 'lowcode'}"
+      item-key="id"
+      @start="handleStart"
+      @add="handleAdd"
+      @end="handleEnd"
+    >
+      <template #item="{element: item}">
+        <draggable
+            v-model="item.childs"
+            ghost-class="ghost"
+            chosen-class="chosen"
+            :group="{ name: 'lowcode'}"
+            tag="a-row"
+            :component-data="{
+              gutter: worksheetData.options.row.gutter,
+              align:  worksheetData.options.row.align,
+            }"
+            item-key="id"
+            @start="handleChildStart"
+            @add="handleChildAdd"
+            @end="handleChildEnd"
+          >
+            <template #item="{element: child}">
+              <a-col :span="12">
+                <Renderer :is="child.components" :options="child.options" />
+              </a-col> 
+            </template>
+        </draggable>
+      </template> 
+    </draggable>  
   </div>
 </template>
 <script>
 import draggable from "vuedraggable";
 import { useSchemesStore } from '/@/store/modules/scheme';
-
 const store = useSchemesStore();
 
 export default defineComponent({
   components: {
-    draggable
+    draggable,
   },
   setup(props) {
-    
+
     let data = reactive({
-      generateWidgets: [],
-      recordWidgets: [],
+      worksheetData: {
+        widgets: [],
+        options: {
+          row: {
+            gutter: 16,
+            align: 'middle'
+          }
+        }
+      },
+      recordWidget: [],
     });
 
     let dataSource = ref([]);
     dataSource.value = store.handleGetBasicWidgets();
 
-    watch(() => (data.generateWidgets), () => {
-      store.handleSetGenerateWidgets(data.generateWidgets)
+    watch(() => (data.worksheetData), () => {
+      store.handleSetGenerateWidgets(data.worksheetData.widgets)
+    },{
+      deep: true
     })
 
     // 方法
     const _insertNode = () => {
       const arr = [];
-      data.generateWidgets.forEach((item) => {
+      data.worksheetData.widgets.forEach((item) => {
         arr.push(item);
         arr.push({
           type: "insert",
@@ -72,18 +81,18 @@ export default defineComponent({
           childs: [],
         });
       });
-      data.generateWidgets = arr;
+      data.worksheetData.widgets = arr;
     }
 
     const _deleteNode = () => {
       nextTick(() => {
-        data.generateWidgets.forEach((item, index) => {
+        data.worksheetData.widgets.forEach((item, index) => {
           if (
             item.name ||
             !item.childs.length ||
             (item.type === "insert" && !item.childs.length)
           ) {
-            data.generateWidgets.splice(index, 1);
+            data.worksheetData.widgets.splice(index, 1);
           }
         });
       })
@@ -91,7 +100,7 @@ export default defineComponent({
 
     const handleStart = (e) => {
       const oldIndex = e.oldIndex;
-      data.recordWidgets = dataSource.value[oldIndex];
+      data.recordWidget = dataSource.value[oldIndex];
       _insertNode();
     }
 
@@ -104,7 +113,7 @@ export default defineComponent({
       };
       // 
       obj.childs.push({ ...e.item._underlying_vm_ });
-      data.generateWidgets.splice(newIndex, 0, obj); //
+      data.worksheetData.widgets.splice(newIndex, 0, obj); //
       _deleteNode();
     }
 
