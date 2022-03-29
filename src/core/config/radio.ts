@@ -6,7 +6,7 @@ export default {
   props: {
     value: '',
     size: 'large',
-    buttonStyle: 'solid'
+    buttonStyle: 'outline'
   },
   mock:{
     defaultValue: '',

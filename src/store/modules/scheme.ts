@@ -16,7 +16,7 @@ export const useSchemesStore = defineStore({
   state: ():any =>({
     basicWidgets:[
       {
-        id: 0,
+        index: 0,
         name: '输入框',
         type: 'basic',
         icon: '',
@@ -24,7 +24,7 @@ export const useSchemesStore = defineStore({
         components: Input,
       },
       {
-        id: 1,
+        index: 1,
         name: '单选框',
         type: 'basic',
         icon: '',
@@ -32,7 +32,7 @@ export const useSchemesStore = defineStore({
         components: Radio,
       },
       {
-        id: 2,
+        index: 2,
         name: '选择器',
         type: 'basic',
         icon: '',

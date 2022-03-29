@@ -1,38 +1,40 @@
 <template>
   <div class="mid-aside-container">
-    <draggable 
-      class="drag-generate-widget"
-      v-model="generateWidgets"
-      :component-data="{name: 'childs'}"
-      tag="transition-group" 
-      ghost-class="ghost"
-      chosen-class="chosen"
-      :group="{ name: 'lowcode'}"
-      @start="handleStart"
-      @add="handleAdd"
-      @end="handleEnd"
-    >
+    <a-row :gutter="16">
+      <draggable 
+        class="generate-widget"
+        v-model="generateWidgets"
+        ghost-class="ghost"
+        chosen-class="chosen"
+        :group="{ name: 'lowcode'}"
+        item-key="id"
+        @start="handleStart"
+        @add="handleAdd"
+        @end="handleEnd"
+      >
         <template #item="{element: item}">
-          <div class="drag-generate-widget-item">
             <draggable
               v-model="item.childs"
-              tag="div" 
               ghost-class="ghost"
               chosen-class="chosen"
               :group="{ name: 'lowcode'}"
+              item-key="id"
               @start="handleChildStart"
               @add="handleChildAdd"
               @end="handleChildEnd"
+              class="row"
               >
                 <template #item="{element: child}">
-                    <div class="drag-generate-widget-item-child">
-                      <Renderer :is="child.components" :config="child.config" />
-                    </div> 
+                    <a-col :span="12">
+                      <div class="renderer-container">
+                        <Renderer :is="child.components" :config="child.config" />
+                      </div>
+                    </a-col> 
                 </template>
             </draggable>
-           </div>  
         </template> 
-    </draggable>    
+      </draggable>  
+    </a-row>  
   </div>
 </template>
 <script>
@@ -88,44 +90,38 @@ export default defineComponent({
     }
 
     const handleStart = (e) => {
-      console.log('start')
       const oldIndex = e.oldIndex;
-      const newIndex = e.newIndex;
       data.recordWidgets = dataSource.value[oldIndex];
-      // _insertNode();
+      _insertNode();
     }
 
     const handleAdd = (e) => {
-      console.log('add')
-      console.log(e)
-      const oldIndex = e.oldIndex;
       const newIndex = e.newIndex;
       const obj = {
         type: "transfer",
         id: Math.random(),
         childs: [],
       };
-      // obj.childs.push({ ...e.item._underlying_vm_ });
-      obj.childs.push({...dataSource.value[oldIndex]})
+      // 
+      obj.childs.push({ ...e.item._underlying_vm_ });
       data.generateWidgets.splice(newIndex, 0, obj); //
       _deleteNode();
     }
 
     const handleEnd = () => {
-      console.log('end')
-      // _deleteNode();
+      _deleteNode();
     }
 
     const handleChildStart = () => {
-      // _insertNode();
+      _insertNode();
     }
 
     const handleChildAdd = () => {
-      //  _deleteNode();
+       _deleteNode();
     }
 
     const handleChildEnd = () => {
-      // _deleteNode();
+      _deleteNode();
     }
 
     return {
@@ -146,23 +142,27 @@ export default defineComponent({
   flex-basis: 33%;
   height: 100%;
   padding: 20px 20px;
-  .drag-generate-widget{
+  .generate-widget{
     width: 100%;
     height: 100%;
+    &-item{
+      display: flex;
+      flex-basis: 50%;
+      margin-bottom: 5px;
+      &-child{
+        display: flex;
+        flex: 1 0 auto;
+        margin-bottom: 10px;
+      }
+    }
   }
-  .drag-generate-widget-item {
-    flex: 1 0 auto;
-    width: 100%;
+  .row{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+  }
+  .renderer-container{
     margin-bottom: 5px;
-  }
-  .drag-generate-widget-item-child {
-    display: flex;
-    flex: 1 0 auto;
-    margin-bottom: 10px;
-  }
-  .row {
-    display: flex;
-    flex-wrap: wrap;
   }
 }
 </style>

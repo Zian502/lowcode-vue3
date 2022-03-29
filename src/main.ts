@@ -6,8 +6,6 @@ import '/@/styles/index.less';
 
 const app = createApp(App);
 
-console.log(app)
-
 app.use(router);
 
 app.use(store);

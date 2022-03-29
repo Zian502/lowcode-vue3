@@ -3,22 +3,19 @@
     <!-- basic-控件列表 -->
     <div class="basic-widget-wrap">
       <h3>常用控件</h3>
-      <a-row>
         <draggable 
-          v-model="basicWidgets" 
-          tag="transition-group" 
-          :component-data="{name:'fade'}"
+          class="widget-list"
+          v-model="basicWidgets"
           ghost-class="ghost"
           :group="{ name: 'lowcode', pull: 'clone' }"
           :sort="false"
+          :clone="handleClone"
+          item-key="id"
         >
-            <template #item="{element}">
-              <a-col :span="12" >
-                <span class="widget-item">{{element.name}}</span>
-              </a-col>
-            </template>   
-          </draggable>
-      </a-row> 
+          <template #item="{element}">
+            <span class="widget-item">{{element.name}}</span>
+          </template>   
+        </draggable>
     </div>
     <!-- advanced-控件列表 -->
   </div>
@@ -37,8 +34,16 @@ export default defineComponent({
     let basicWidgets = ref([]);
     basicWidgets.value = store.handleGetBasicWidgets();
 
+    const handleClone = (e) => {
+      console.log('e',e)
+      return {
+        id: Math.random(),
+        ...e
+      }
+    }
     return {
       basicWidgets,
+      handleClone,
     }
   },
 })
@@ -47,9 +52,12 @@ export default defineComponent({
 <style lang="less" scoped>
 .left-aside-container{
   flex-basis: 33%;
+  .widget-list{
+    
+  }
   .widget-item{
-    display: flex;
-    align-items: center;
+    display: inline-block;
+    width: 40%;
     cursor: pointer;
     background-color: rgb(255, 255, 255);
     border: 1px solid transparent;
