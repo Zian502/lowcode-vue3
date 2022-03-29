@@ -21,7 +21,6 @@ declare module 'vue' {
     MidAside: typeof import('./pages/worksheet/components/midAside.vue')['default']
     Radio: typeof import('./core/components/basic/Radio.vue')['default']
     RawDisplayer: typeof import('./pages/worksheet/components/rawDisplayer.vue')['default']
-    Recursion: typeof import('./pages/worksheet/components/recursion.vue')['default']
     Renderer: typeof import('./core/renderer/renderer.vue')['default']
     RightAside: typeof import('./pages/worksheet/components/rightAside.vue')['default']
     Select: typeof import('./core/components/basic/Select.vue')['default']
