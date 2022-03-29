@@ -28,7 +28,7 @@
   </div>
 </template>
 <script lang="ts">
-import createReactive from '/@/core//utils/createReacitve'
+import createReactive from '/@/core/utils/createReacitve'
 
 export default defineComponent({
   props: {

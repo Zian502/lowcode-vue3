@@ -8,7 +8,7 @@ import Components from 'unplugin-vue-components/vite';
 export const autoRegistryComponents = () => {
   return Components({
     // relative paths to the directory to search for components.
-    dirs: ['src/core/components','src/pages/worksheet/components', 'src/core/renderer'],
+    dirs: ['src/core/components','src/pages/worksheet/components', 'src/core/renderer', 'src/core/vDraggable'],
 
     // valid file extensions for components.
     extensions: ['vue'],

@@ -1,13 +1,6 @@
 <template>
-  <div class="basic-switch-container">
-    <a-switch
-      v-model:checked="checked" 
-      :size="size"
-      :disabled="disabled"
-      :loading="loading"
-      :autofocus="autofocus"
-      :style="styles"
-    />
+  <div class="layout-general-container">
+   
   </div>
 </template>
 <script lang="ts">
@@ -37,11 +30,10 @@ export default defineComponent({
     });
 
     return {
-      checked: toRefs(data).checked,
-      size:toRefs(data).size,
-      disabled: toRefs(data).disabled,
-      loading: toRefs(data).loading,
-      autofocus: toRefs(data).autofocus,
+      value: toRefs(data).value,
+      defaultValue:toRefs(data).defaultValue,
+      defaultList: toRefs(data).defaultList,
+      allowClear: toRefs(data).allowClear,
       styles: toRefs(data).styles,
     }
   },

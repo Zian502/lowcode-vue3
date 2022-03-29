@@ -4,6 +4,7 @@ import common from './common';
 export default {
   ...common,
   props: {
+    label: '单选框',
     value: '',
     size: 'default',
     buttonStyle: 'outline',

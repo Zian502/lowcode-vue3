@@ -6,16 +6,21 @@ declare module 'vue' {
   export interface GlobalComponents {
     ACard: typeof import('ant-design-vue/es')['Card']
     ACol: typeof import('ant-design-vue/es')['Col']
+    AForm: typeof import('ant-design-vue/es')['Form']
+    AFormItem: typeof import('ant-design-vue/es')['FormItem']
     AInput: typeof import('ant-design-vue/es')['Input']
     ALayout: typeof import('ant-design-vue/es')['Layout']
     ALayoutContent: typeof import('ant-design-vue/es')['LayoutContent']
     ARadio: typeof import('ant-design-vue/es')['Radio']
     ARadioButton: typeof import('ant-design-vue/es')['RadioButton']
     ARadioGroup: typeof import('ant-design-vue/es')['RadioGroup']
+    ARow: typeof import('ant-design-vue/es')['Row']
     ASelect: typeof import('ant-design-vue/es')['Select']
     ASelectOption: typeof import('ant-design-vue/es')['SelectOption']
     ASwitch: typeof import('ant-design-vue/es')['Switch']
     ATextarea: typeof import('ant-design-vue/es')['Textarea']
+    Form: typeof import('./core/components/layout/Form.vue')['default']
+    General: typeof import('./core/components/layout/General.vue')['default']
     Input: typeof import('./core/components/basic/Input.vue')['default']
     LeftAside: typeof import('./pages/worksheet/components/leftAside.vue')['default']
     MidAside: typeof import('./pages/worksheet/components/midAside.vue')['default']
@@ -25,6 +30,7 @@ declare module 'vue' {
     RightAside: typeof import('./pages/worksheet/components/rightAside.vue')['default']
     Select: typeof import('./core/components/basic/Select.vue')['default']
     Switch: typeof import('./core/components/basic/Switch.vue')['default']
+    VDraggable: typeof import('./core/vDraggable/vDraggable.vue')['default']
   }
 }
 

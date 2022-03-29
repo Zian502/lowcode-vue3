@@ -3,67 +3,81 @@
     <!-- basic-控件列表 -->
     <div class="basic-widget-wrap">
       <h3>常用控件</h3>
-        <draggable 
-          class="widget-list"
+        <v-draggable 
           v-model="basicWidgets"
-          ghost-class="ghost"
           :group="{ name: 'lowcode', pull: 'clone' }"
           :sort="false"
           :clone="handleClone"
-          item-key="id"
         >
-          <template #item="{element}">
-            <span class="widget-item">{{element.name}}</span>
-          </template>   
-        </draggable>
+          <template #item="{item}">
+            <span class="widget-item">{{item.name}}</span>
+          </template>
+        </v-draggable>
     </div>
     <!-- advanced-控件列表 -->
+
+    <!-- 布局-控件列表 -->
+    <div class="basic-widget-wrap">
+      <h3>布局控件</h3>
+        <v-draggable 
+          v-model="layoutWidgets"
+          :group="{ name: 'lowcode', pull: 'clone' }"
+          :sort="false"
+          :clone="handleClone"
+        >
+          <template #item="{item}">
+             <span class="widget-item">{{item.name}}</span>
+          </template>
+        </v-draggable>
+    </div>
   </div>
 </template>
 <script>
-import draggable from "vuedraggable";
-import { useSchemesStore } from '/@/store/modules/scheme';
-
+import { useSchemesStore } from "/@/store/modules/scheme";
+import shortid from "shortid";
 const store = useSchemesStore();
 
 export default defineComponent({
-  components: {
-    draggable
-  },
   setup() {
     let basicWidgets = ref([]);
+    let layoutWidgets = ref([]);
     basicWidgets.value = store.handleGetBasicWidgets();
+    layoutWidgets.value = store.handleGetLayoutWidgets();
 
     const handleClone = (e) => {
-      console.log('e',e)
       return {
-        id: Math.random(),
+        id: shortid.generate(),
         ...e
       }
     }
     return {
       basicWidgets,
+      layoutWidgets,
       handleClone,
     }
   },
 })
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .left-aside-container{
   flex-basis: 33%;
-  .widget-list{
-    
+  .v-draggable-list{
+    width: 100%;
+    &-item{
+      display: inline-block;
+      width: 40%;
+      margin: 4px 4px;
+    }
   }
   .widget-item{
     display: inline-block;
-    width: 40%;
+    width: 100%;
     cursor: pointer;
     background-color: rgb(255, 255, 255);
     border: 1px solid transparent;
     box-shadow: rgb(0 0 0 / 6%) 0px 1px 2px;
     border-radius: 4px;
-    margin: 4px 4px;
     padding: 4px 4px;
   }
 }

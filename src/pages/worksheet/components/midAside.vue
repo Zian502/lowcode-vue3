@@ -3,34 +3,30 @@
     <draggable 
       class="generate-widget"
       v-model="worksheetData.widgets"
-      ghost-class="ghost"
-      chosen-class="chosen"
       :group="{ name: 'lowcode'}"
       item-key="id"
       @start="handleStart"
       @add="handleAdd"
       @end="handleEnd"
     >
-      <template #item="{element: item}">
+      <template #item="{element}">
         <draggable
-            v-model="item.childs"
-            ghost-class="ghost"
-            chosen-class="chosen"
+            v-model="element.childs"
             :group="{ name: 'lowcode'}"
             tag="a-row"
-            :component-data="{
-              gutter: worksheetData.options.row.gutter,
-              align:  worksheetData.options.row.align,
-            }"
             item-key="id"
+            :componentData="{
+              gutter: worksheetData.options.layouts.row.gutter,
+              align: worksheetData.options.layouts.row.align,
+            }"
             @start="handleChildStart"
             @add="handleChildAdd"
             @end="handleChildEnd"
           >
             <template #item="{element: child}">
               <a-col :span="12">
-                <Renderer :is="child.components" :options="child.options" />
-              </a-col> 
+                <renderer :is="child.components" :globalOptions="worksheetData.options" :componentOptions="child.options" />
+              </a-col>
             </template>
         </draggable>
       </template> 
@@ -40,6 +36,7 @@
 <script>
 import draggable from "vuedraggable";
 import { useSchemesStore } from '/@/store/modules/scheme';
+import shortid from "shortid";
 const store = useSchemesStore();
 
 export default defineComponent({
@@ -51,18 +48,14 @@ export default defineComponent({
     let data = reactive({
       worksheetData: {
         widgets: [],
-        options: {
-          row: {
-            gutter: 16,
-            align: 'middle'
-          }
-        }
+        options: {}
       },
       recordWidget: [],
     });
 
     let dataSource = ref([]);
     dataSource.value = store.handleGetBasicWidgets();
+    data.worksheetData.options = store.handleGetGlobalOptions();
 
     watch(() => (data.worksheetData), () => {
       store.handleSetGenerateWidgets(data.worksheetData.widgets)
@@ -76,8 +69,8 @@ export default defineComponent({
       data.worksheetData.widgets.forEach((item) => {
         arr.push(item);
         arr.push({
+          id: shortid.generate(),
           type: "insert",
-          id: Math.random(),
           childs: [],
         });
       });
@@ -107,10 +100,11 @@ export default defineComponent({
     const handleAdd = (e) => {
       const newIndex = e.newIndex;
       const obj = {
+        id: shortid.generate(),
         type: "transfer",
-        id: Math.random(),
         childs: [],
       };
+      console.log(e)
       // 
       obj.childs.push({ ...e.item._underlying_vm_ });
       data.worksheetData.widgets.splice(newIndex, 0, obj); //

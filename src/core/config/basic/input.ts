@@ -4,21 +4,17 @@ import common from './common';
 export default {
   ...common,
   props: {
+    label: '输入框',
+    type: 'input',
     value: '',
-    allowClear: false,
+    size: 'large',
+    placeholder: '请输入',
+    autoSize: true,
+    maxlength: null,
+    rows: 1,
   },
   mock: {
     defaultValue: '',
-    defaultList: [
-      {
-        value: 1,
-        label: '是'
-      },
-      {
-        value: 0,
-        label: '否'
-      }
-    ]
   },
   styles:{
     width: '100%'

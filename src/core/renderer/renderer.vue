@@ -1,6 +1,6 @@
 <template>
   <div class="renderer-container">
-    <component :is="is" :compProps="options.props" :compMock="options.mock" :compStyles="options.styles" />
+    <component :is="is" :compProps="componentOptions.props" :compMock="componentOptions.mock" :compStyles="componentOptions.styles" />
   </div>
 </template>
 <script>
@@ -10,7 +10,11 @@ export default {
       type: String,
       default: ''
     },
-    options: {
+    globalOptions: {
+      type: Object,
+      default: {}
+    },
+    componentOptions: {
       type: Object,
       default: {}
     }

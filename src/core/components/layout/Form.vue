@@ -1,13 +1,24 @@
 <template>
-  <div class="basic-switch-container">
-    <a-switch
-      v-model:checked="checked" 
-      :size="size"
-      :disabled="disabled"
-      :loading="loading"
-      :autofocus="autofocus"
-      :style="styles"
-    />
+  <div class="layout-form-container">
+    <a-form
+      :model="model" 
+      :layout="layout"
+      :name="name"
+      :validateMessages="validateMessages"
+      >
+       <a-form-item 
+        :label="label"
+        >
+        <a-row>
+          <a-col :span="12">
+            <slot></slot>
+          </a-col>
+          <a-col :span="12">
+            <slot></slot>
+          </a-col>
+        </a-row>
+       </a-form-item>  
+    </a-form>
   </div>
 </template>
 <script lang="ts">
@@ -37,11 +48,10 @@ export default defineComponent({
     });
 
     return {
-      checked: toRefs(data).checked,
-      size:toRefs(data).size,
-      disabled: toRefs(data).disabled,
-      loading: toRefs(data).loading,
-      autofocus: toRefs(data).autofocus,
+      model: toRefs(data).model,
+      layout:toRefs(data).layout,
+      name: toRefs(data).name,
+      validateMessages: toRefs(data).validateMessages,
       styles: toRefs(data).styles,
     }
   },
