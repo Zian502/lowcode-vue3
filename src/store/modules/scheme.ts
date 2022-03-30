@@ -5,7 +5,7 @@ import {
   radioConf,
   selectConf,
   switchConf,
-  generalConf,
+  gridConf,
   formConf
 } from '/@/core/config';
 import{
@@ -15,7 +15,7 @@ import{
   Switch,
 } from '/@/core/components/index';
 import{
-  General,
+  Grid,
   Form,
 } from '/@/core/components/index';
 
@@ -25,14 +25,18 @@ export const useSchemesStore = defineStore({
     // 全局配置
     globalOptions: {
       layouts: {
-        row: {
+        name: 'grid',
+        tag: 'a-row',
+        props: {
           gutter: 16,
-          align: 'top'
-        },
-        form: {
-
+          align: 'middle',
+          justify: 'start',
+          wrap: false,
+          span: 24,
         }
-      }
+      },
+      options: {},
+      widgetModules:{}
     },
     // 基础控件
     basicWidgets:[
@@ -42,6 +46,9 @@ export const useSchemesStore = defineStore({
         type: 'basic-input',
         icon: '',
         options: inputConf.default,
+        layouts: {
+          name: 'general'
+        },
         components: Input,
       },
       {
@@ -50,6 +57,9 @@ export const useSchemesStore = defineStore({
         type: 'basic-radio',
         icon: '',
         options: radioConf.default,
+        layouts: {
+          name: 'general'
+        },
         components: Radio,
       },
       {
@@ -58,6 +68,9 @@ export const useSchemesStore = defineStore({
         type: 'basic-select',
         icon: '',
         options: selectConf.default,
+        layouts: {
+          name: 'general'
+        },
         components: Select,
       },
       {
@@ -66,6 +79,9 @@ export const useSchemesStore = defineStore({
         type: 'basic-switch',
         icon: '',
         options: switchConf.default,
+        layouts: {
+          name: 'general'
+        },
         components: Switch,
       }
     ],
@@ -75,21 +91,25 @@ export const useSchemesStore = defineStore({
     layoutWidgets: [
       {
         index: 0,
-        name: '普通',
-        type: 'layout-general',
+        name: '栅格布局',
+        type: 'layout-grid',
         icon: '',
-        options: generalConf.default,
-        components: General,
-        columns: [],
+        options: gridConf.default,
+        layouts: {
+          name: 'general'
+        },
+        components: Grid,
       },
       {
         index: 0,
-        name: '表单',
+        name: '表单布局',
         type: 'layout-form',
         icon: '',
         options: formConf.default,
+        layouts: {
+          name: 'general'
+        },
         components: Form,
-        columns: [],
       }
     ],
     // 生成控件

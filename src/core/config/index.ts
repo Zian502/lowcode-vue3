@@ -7,6 +7,7 @@ import * as switchConf from './basic/switch';
 
 // 布局控件配置
 import * as generalConf from './layout/general';
+import * as gridConf from './layout/grid';
 import * as formConf from './layout/form';
 
 export {
@@ -15,5 +16,6 @@ export {
   selectConf,
   switchConf,
   generalConf,
+  gridConf,
   formConf
 }

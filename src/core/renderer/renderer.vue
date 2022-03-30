@@ -1,6 +1,13 @@
 <template>
   <div class="renderer-container">
-    <component :is="is" :compProps="componentOptions.props" :compMock="componentOptions.mock" :compStyles="componentOptions.styles" />
+    <component 
+      :is="is" 
+      :compProps="componentOptions.props" 
+      :compMock="componentOptions.mock" 
+      :compStyles="componentOptions.styles" 
+      :worksheetData="worksheetData"
+      :child="child"
+      />
   </div>
 </template>
 <script>
@@ -9,6 +16,14 @@ export default {
     is: {
       type: String,
       default: ''
+    },
+    worksheetData: {
+      type: Object,
+      default: {}
+    },
+    child: {
+      type: Object,
+      default: {}
     },
     globalOptions: {
       type: Object,
@@ -30,6 +45,5 @@ export default {
 <style lang="less" scoped>
 .renderer-container{
   width: 100%;
-  margin-bottom: 5px;
 }
 </style>

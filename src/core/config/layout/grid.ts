@@ -7,6 +7,8 @@ export default {
     align: 'middle',
     justify: 'start',
     wrap: false,
-    span: 12,
+  },
+  mock:{
+    columns: [],
   }
 }

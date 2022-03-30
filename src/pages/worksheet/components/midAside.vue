@@ -11,21 +11,20 @@
     >
       <template #item="{element}">
         <draggable
-            v-model="element.childs"
-            :group="{ name: 'lowcode'}"
-            tag="a-row"
-            item-key="id"
-            :componentData="{
-              gutter: worksheetData.options.layouts.row.gutter,
-              align: worksheetData.options.layouts.row.align,
-            }"
-            @start="handleChildStart"
-            @add="handleChildAdd"
-            @end="handleChildEnd"
+          v-model="element.childs"
+          :group="{ name: 'lowcode'}"
+          :tag="worksheetData.layouts.tag"
+          item-key="id"
+          :componentData="{
+            ...worksheetData.layouts.props,
+          }"
+          @start="handleChildStart"
+          @add="handleChildAdd"
+          @end="handleChildEnd"
           >
             <template #item="{element: child}">
-              <a-col :span="12">
-                <renderer :is="child.components" :globalOptions="worksheetData.options" :componentOptions="child.options" />
+              <a-col class="border bg pd flex h-46" :span="worksheetData.layouts.props.span">
+                <renderer :is="child.components" :worksheetData="worksheetData" :child="child" :globalOptions="worksheetData.options" :componentOptions="child.options" />
               </a-col>
             </template>
         </draggable>
@@ -35,19 +34,22 @@
 </template>
 <script>
 import draggable from "vuedraggable";
-import { useSchemesStore } from '/@/store/modules/scheme';
 import shortid from "shortid";
+import { General } from '/@/core/components';
+import { useSchemesStore } from '/@/store/modules/scheme';
 const store = useSchemesStore();
 
 export default defineComponent({
   components: {
     draggable,
+    General,
   },
   setup(props) {
 
     let data = reactive({
       worksheetData: {
         widgets: [],
+        layouts: {},
         options: {}
       },
       recordWidget: [],
@@ -55,7 +57,8 @@ export default defineComponent({
 
     let dataSource = ref([]);
     dataSource.value = store.handleGetBasicWidgets();
-    data.worksheetData.options = store.handleGetGlobalOptions();
+    data.worksheetData.layouts = store.handleGetGlobalOptions().layouts;
+    data.worksheetData.options = store.handleGetGlobalOptions().options;
 
     watch(() => (data.worksheetData), () => {
       store.handleSetGenerateWidgets(data.worksheetData.widgets)
@@ -71,6 +74,7 @@ export default defineComponent({
         arr.push({
           id: shortid.generate(),
           type: "insert",
+          layouts: {},
           childs: [],
         });
       });
@@ -102,11 +106,17 @@ export default defineComponent({
       const obj = {
         id: shortid.generate(),
         type: "transfer",
+        layouts: {},
         childs: [],
       };
-      console.log(e)
-      // 
-      obj.childs.push({ ...e.item._underlying_vm_ });
+      const curWidget = e.item._underlying_vm_;
+      // 布局控件
+      obj.layouts = {
+        name: 'general',
+        props: {}
+      };
+      // 子集控件
+      obj.childs.push({ ...curWidget });
       data.worksheetData.widgets.splice(newIndex, 0, obj); //
       _deleteNode();
     }
@@ -164,8 +174,22 @@ export default defineComponent({
     flex-flow: row wrap;
     align-items: center;
   }
-  .renderer-container{
-    margin-bottom: 5px;
+  .border{
+    border: 1px dashed #ccc;
+  }
+  .bg{
+    background: #f0f0f0;
+  }
+  .pd{
+    padding: 6px 6px;
+  }
+  .flex{
+    display: flex;
+    align-items: center;
+    margin-right: 2px;
+  }
+  .h-46{
+    height: 46px;
   }
 }
 </style>

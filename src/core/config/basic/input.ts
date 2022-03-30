@@ -7,7 +7,7 @@ export default {
     label: '输入框',
     type: 'input',
     value: '',
-    size: 'large',
+    size: 'default',
     placeholder: '请输入',
     autoSize: true,
     maxlength: null,

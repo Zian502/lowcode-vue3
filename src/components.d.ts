@@ -21,6 +21,7 @@ declare module 'vue' {
     ATextarea: typeof import('ant-design-vue/es')['Textarea']
     Form: typeof import('./core/components/layout/Form.vue')['default']
     General: typeof import('./core/components/layout/General.vue')['default']
+    Grid: typeof import('./core/components/layout/Grid.vue')['default']
     Input: typeof import('./core/components/basic/Input.vue')['default']
     LeftAside: typeof import('./pages/worksheet/components/leftAside.vue')['default']
     MidAside: typeof import('./pages/worksheet/components/midAside.vue')['default']

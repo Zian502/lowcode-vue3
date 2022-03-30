@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-general-container">
+  <div class="layout-grid-container">
    <a-row
       :align="align"
       :gutter="gutter"
@@ -14,21 +14,24 @@
 import createReactive from '/@/core/utils/createReacitve'
 
 export default defineComponent({
-  name: 'general',
+  name: 'grid',
   props: {
     compProps: {
+      type: Object,
+      default: {}
+    },
+    compMock: {
       type: Object,
       default: {}
     }
   },
   setup(props) {
-    const { compProps } = props;
+    const { compProps, compMock } = props;
     let data = createReactive({
-      compProps
+      compProps,
+      compMock
     });
 
-    console.log(data)
-    
     return {
       align: toRefs(data).align,
       gutter: toRefs(data).gutter,
@@ -41,7 +44,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-.layout-general-container{
+.layout-grid-container{
   width: 100%;
 }
 </style>
