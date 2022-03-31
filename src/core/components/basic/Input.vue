@@ -57,6 +57,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+.basic-input-container{
+  width: 100%;
+}
 </style>

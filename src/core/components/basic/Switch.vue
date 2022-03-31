@@ -49,7 +49,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-.basic-input-container{
+.basic-switch-container{
   width: 100%;
 }
 </style>

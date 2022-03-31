@@ -31,7 +31,7 @@ export const useSchemesStore = defineStore({
           gutter: 16,
           align: 'middle',
           justify: 'start',
-          wrap: false,
+          wrap: true,
           span: 24,
         }
       },

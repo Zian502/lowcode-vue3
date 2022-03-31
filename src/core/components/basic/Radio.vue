@@ -70,6 +70,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+.basic-radio-container{
+  width: 100%;
+}
 </style>
