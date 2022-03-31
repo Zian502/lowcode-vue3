@@ -8,7 +8,18 @@ export default {
     value: '',
     size: 'default',
     buttonStyle: 'outline',
-    optionType: 'default'
+    optionType: 'default',
+  },
+  layouts: {
+    formItem:{
+      name: 'radio',
+      label: '单选框',
+      labelAlign: 'right',
+      labelCol: {},
+      required: false,
+      extra: '',
+      rules: [],
+    }
   },
   mock:{
     defaultValue: '',

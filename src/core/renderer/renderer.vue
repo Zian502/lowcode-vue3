@@ -45,5 +45,7 @@ export default {
 <style lang="less" scoped>
 .renderer-container{
   width: 100%;
+  display: flex;
+  align-items: center;
 }
 </style>

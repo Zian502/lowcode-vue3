@@ -9,7 +9,18 @@ export default {
     size: 'default',
     disabled: false,
     loading: false,
-    autofocus: false
+    autofocus: false,
+  },
+  layouts: {
+    formItem:{
+      name: 'switch',
+      label: '开关',
+      labelAlign: 'right',
+      labelCol: {},
+      required: false,
+      extra: '',
+      rules: [],
+    }
   },
   mock: {
     

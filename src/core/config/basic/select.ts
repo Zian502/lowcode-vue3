@@ -8,6 +8,17 @@ export default {
     value: '',
     allowClear: false,
   },
+  layouts: {
+    formItem:{
+      name: 'select',
+      label: '选择器',
+      labelAlign: 'right',
+      labelCol: {},
+      required: false,
+      extra: '',
+      rules: [],
+    }
+  },
   mock: {
     defaultValue: '',
     defaultList: [

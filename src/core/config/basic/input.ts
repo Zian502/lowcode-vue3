@@ -13,6 +13,17 @@ export default {
     maxlength: null,
     rows: 1,
   },
+  layouts: {
+    formItem:{
+      name: 'input',
+      label: '输入框',
+      labelAlign: 'right',
+      labelCol: {},
+      required: false,
+      extra: '',
+      rules: [],
+    }
+  },
   mock: {
     defaultValue: '',
   },

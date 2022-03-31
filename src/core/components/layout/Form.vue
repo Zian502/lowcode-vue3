@@ -21,8 +21,14 @@
           @add="handleAdd"
         >
           <template #item="{element}">
-            <a-col :span="12"  class="border" style="height: 50px">
-              <renderer :is="element.components" :globalOptions="worksheetData.options" :componentOptions="element.options" />
+            <a-col :span="12" class="border h-46 flex-ali-cen">
+              <a-form-item
+                :name="element.options.layouts.formItem.name"
+                :label="element.options.layouts.formItem.label"
+                :rules="element.options.layouts.formItem.rules"
+              >
+                <renderer :is="element.components" :globalOptions="worksheetData.options" :componentOptions="element.options" />
+              </a-form-item>
             </a-col>
           </template>
         </draggable>
@@ -93,10 +99,10 @@ export default defineComponent({
     height: 100%;
   }
   .border{
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #EEE;
     &:last-of-type{
       border: none;
     }
   }
-}
+} 
 </style>

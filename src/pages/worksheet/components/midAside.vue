@@ -23,7 +23,7 @@
           @end="handleChildEnd"
           >
             <template #item="{element: child}">
-              <a-col class="border bg pd flex h-46" :span="worksheetData.layouts.props.span">
+              <a-col :class="classOfAcol(child)" :span="worksheetData.layouts.props.span">
                 <renderer :is="child.components" :worksheetData="worksheetData" :child="child" :globalOptions="worksheetData.options" :componentOptions="child.options" />
               </a-col>
             </template>
@@ -64,7 +64,7 @@ export default defineComponent({
       store.handleSetGenerateWidgets(data.worksheetData.widgets)
     },{
       deep: true
-    })
+    });
 
     // 方法
     const _insertNode = () => {
@@ -106,7 +106,6 @@ export default defineComponent({
       const obj = {
         id: shortid.generate(),
         type: "transfer",
-        layouts: {},
         childs: [],
       };
       const curWidget = e.item._underlying_vm_;
@@ -137,6 +136,17 @@ export default defineComponent({
       _deleteNode();
     }
 
+    const classOfAcol = (val) => {
+      const type = val.type;
+      return [
+        type === 'layout-form' ? 'form-border' : 'border',
+        'pad-0-0',
+        'flex-ali-cen',
+        'h-46',
+        'm-r-2',
+      ]
+    }
+
     return {
       ...toRefs(data),
       handleStart,
@@ -145,6 +155,7 @@ export default defineComponent({
       handleChildStart,
       handleChildAdd,
       handleChildEnd,
+      classOfAcol,
     }
   },
 })
@@ -177,19 +188,8 @@ export default defineComponent({
   .border{
     border: 1px dashed #ccc;
   }
-  .bg{
-    background: #f0f0f0;
-  }
   .pd{
     padding: 6px 6px;
-  }
-  .flex{
-    display: flex;
-    align-items: center;
-    margin-right: 2px;
-  }
-  .h-46{
-    height: 46px;
   }
 }
 </style>
