@@ -139,8 +139,8 @@ export default defineComponent({
     const classOfAcol = (val) => {
       const type = val.type;
       return [
-        type === 'layout-form' || 'layout-grid' ? 'form-border' : 'border',
-        type === 'layout-form' || 'layout-grid' ? 'pad-0-0' : 'pad-6-6',
+        type === 'layout-form' || type === 'layout-grid' ? 'form-border' : 'border',
+        type === 'layout-form' || type === 'layout-grid' ? 'pad-0-0' : 'pad-6-6',
         'flex-ali-cen',
         'h-46',
         'm-r-2',
