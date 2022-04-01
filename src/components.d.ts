@@ -5,6 +5,8 @@
 declare module 'vue' {
   export interface GlobalComponents {
     ACard: typeof import('ant-design-vue/es')['Card']
+    ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
+    ACheckboxGroup: typeof import('ant-design-vue/es')['CheckboxGroup']
     ACol: typeof import('ant-design-vue/es')['Col']
     AForm: typeof import('ant-design-vue/es')['Form']
     AFormItem: typeof import('ant-design-vue/es')['FormItem']
@@ -21,6 +23,7 @@ declare module 'vue' {
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
     ATextarea: typeof import('ant-design-vue/es')['Textarea']
+    Checkbox: typeof import('./core/components/basic/Checkbox.vue')['default']
     Form: typeof import('./core/components/layout/Form.vue')['default']
     General: typeof import('./core/components/layout/General.vue')['default']
     Grid: typeof import('./core/components/layout/Grid.vue')['default']

@@ -67,6 +67,7 @@ export default defineComponent({
     data.worksheetData.options = store.handleGetGlobalOptions().options;
 
     watch(() => (data.worksheetData), () => {
+      store.handleSetWorksheetData(data.worksheetData)
       store.handleSetGenerateWidgets(data.worksheetData.widgets)
     },{
       deep: true
@@ -123,6 +124,8 @@ export default defineComponent({
       // 子集控件
       obj.childs.push({ ...curWidget });
       data.worksheetData.widgets.splice(newIndex, 0, obj); //
+      // 
+      store.handleSetRecordWidget(curWidget);
       _deleteNode();
     }
 

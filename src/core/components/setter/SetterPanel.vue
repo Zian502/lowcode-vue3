@@ -5,24 +5,29 @@
       :centered="centered"
       >
       <a-tab-pane v-for="item in mock.defaultList" :key="item.key" :tab="item.tab">
-        <a-from>
-          <template v-for="(item, index) in recordWidget" :key="index">
-            <a-form-item>
-              <renderer :is="item.components"></renderer>
+        <div class="tab-panel-content">
+          <a-from>
+            <a-form-item
+                v-for="(item, index) in setters" :key="index"
+                :label="item.label"
+              >
+                <renderer :type="item.type" :globalOptions="worksheetData.options" :componentOptions="item" />
             </a-form-item>
-          </template>
-        </a-from>
+          </a-from>
+        </div>
       </a-tab-pane>
     </a-tabs>
   </div>
 </template>
 <script>
-import renderer from "../../renderer/renderer.vue";
 
 export default defineComponent({
-  components: { renderer },
   name: 'SetterPanel',
   props: {
+    worksheetData: {
+      type: Object,
+      default: {}
+    },
     recordWidget: {
       type: Object,
       default: {}
@@ -35,14 +40,22 @@ export default defineComponent({
   setup(props) {
     const {
       setterData,
-      recordWidget
     } = props;
 
+    let setters = ref([]);
+
+    watch(() => props.recordWidget, (val)=>{
+      setters.value = val?.options?.setters
+    },{
+      deep: true
+    })
+
     return {
+      ...toRef(props),
       ...toRefs(setterData.panel.props),
       panel: toRefs(setterData.panel),
       mock: toRefs(setterData.panel).mock,
-      recordWidget,
+      setters,
     }
   },
 })
@@ -50,5 +63,8 @@ export default defineComponent({
 <style lang="less" scoped>
 .settter-panel-container{
   background: #fff;
+  .tab-panel-content{
+    padding: 0 20px;
+  }
 }
 </style>

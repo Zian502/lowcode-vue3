@@ -1,6 +1,7 @@
 import{
   Input,
   Radio,
+  Checkbox,
   Select,
   Switch,
   Grid,
@@ -16,6 +17,10 @@ const comps = [
   {
     name: 'radio',
     component: Radio, 
+  },
+  {
+    name: 'checkbox',
+    component: Checkbox, 
   },
   {
     name: 'select',

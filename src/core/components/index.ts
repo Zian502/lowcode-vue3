@@ -3,6 +3,7 @@
 
 import Input from './basic/Input.vue';
 import Radio from './basic/Radio.vue';
+import Checkbox from './basic/Checkbox.vue';
 import Select from './basic/Select.vue';
 import Switch from './basic/Switch.vue';
 
@@ -14,6 +15,7 @@ import Form from './layout/Form.vue';
 export {
   Input,
   Radio,
+  Checkbox,
   Select,
   Switch,
   General,

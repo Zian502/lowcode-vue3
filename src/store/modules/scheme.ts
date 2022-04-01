@@ -3,6 +3,7 @@ import { store } from '/@/store';
 import { 
   inputConf, 
   radioConf,
+  checkboxConf,
   selectConf,
   switchConf,
   gridConf,
@@ -53,6 +54,16 @@ export const useSchemesStore = defineStore({
       },
       {
         index: 2,
+        name: '多选框',
+        type: 'basic-checkbox',
+        icon: '',
+        options: checkboxConf.default,
+        layouts: {
+          name: 'general'
+        },
+      },
+      {
+        index: 3,
         name: '选择器',
         type: 'basic-select',
         icon: '',
@@ -62,7 +73,7 @@ export const useSchemesStore = defineStore({
         },
       },
       {
-        index: 3,
+        index: 4,
         name: '开关',
         type: 'basic-switch',
         icon: '',
@@ -101,12 +112,17 @@ export const useSchemesStore = defineStore({
     setterData: {
       panel: setterPanelConf.default.panel
     },
+    // 
+    worksheetData: [],
     // 生成控件
     generateWidgets: [],
     // 当前操作的控件
     recordWidget: [],
   }),
   getters: {
+    getWorksheetData():any {
+      return this.worksheetData
+    },
     getGlobalOptions():any {
       return this.globalOptions
     },
@@ -127,6 +143,9 @@ export const useSchemesStore = defineStore({
     }
   },
   actions: {
+    handleSetWorksheetData(value:any):any {
+      this.worksheetData = value;
+    },
     handleGetGlobalOptions():any {
       return this.getGlobalOptions;
     },
@@ -147,6 +166,9 @@ export const useSchemesStore = defineStore({
     },
     handleGetRecordWidget():any {
       return this.getRecordWidget;
+    },
+    handleSetRecordWidget(value:any):any {
+      this.recordWidget = value;
     }
   }
 })

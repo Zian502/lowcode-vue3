@@ -2,6 +2,7 @@
 // 基础控件配置
 import * as inputConf from './basic/input';
 import * as radioConf from './basic/radio';
+import * as checkboxConf from './basic/checkbox';
 import * as selectConf from './basic/select';
 import * as switchConf from './basic/switch';
 
@@ -16,6 +17,7 @@ import * as setterPanelConf from './setter/setterPanel';
 export {
   inputConf,
   radioConf,
+  checkboxConf,
   selectConf,
   switchConf,
   generalConf,

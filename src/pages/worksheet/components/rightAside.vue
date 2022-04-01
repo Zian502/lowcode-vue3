@@ -1,6 +1,6 @@
 <template>
   <div class="right-aside-container">
-    <setter-panel :recordWidget="recordWidget" :setterData="setterData" />
+    <setter-panel :worksheetData="worksheetData" :recordWidget="recordWidget" :setterData="setterData" />
   </div>
 </template>
 <script>
@@ -10,8 +10,10 @@ const store = useSchemesStore();
 
 export default defineComponent({
   setup() {
+    let worksheetData = ref([])
     let setterData = ref([])
     let recordWidget = ref([])
+    worksheetData.value = store.getWorksheetData
     setterData.value = store.getSetterData
 
     const unsubscribe = store.$onAction((
@@ -23,10 +25,12 @@ export default defineComponent({
         onError // 钩子函数，在action函数报错或者rejects后执行
       }) => {
         after(result => {
-          setterData.value = store.handleGetSetterData
-          recordWidget.value = store.handleGetRecordWidget
+          worksheetData.value = store.getWorksheetData
+          setterData.value = store.getSetterData
+          recordWidget.value = store.getRecordWidget
 
-          console.log(recordWidget)
+
+          console.log('recordWidget', recordWidget)
         })
 
         onError(error => {
@@ -39,7 +43,9 @@ export default defineComponent({
     // unsubscribe() // 手动停止订阅
 
     return {
-      setterData
+      worksheetData,
+      setterData,
+      recordWidget
     }
   },
 })
