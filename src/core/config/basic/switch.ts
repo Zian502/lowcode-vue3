@@ -22,7 +22,6 @@ export default {
       rules: [],
     }
   },
-  mock: {
-    
-  }
+  mock: {},
+  setters: {},
 }

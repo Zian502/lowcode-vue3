@@ -3,7 +3,7 @@ import {
   toRefs
 } from 'vue';
 
-const createReactive = ({compProps = {}, compMock = {}, compStyles = {}} = {}): any => {
+const createReactive = ({compProps = {}, compMock = {}, compStyles = {}, compLayouts = {}} = {}): any => {
 
   const propsReactive = reactive({
     ...compProps,
@@ -14,10 +14,14 @@ const createReactive = ({compProps = {}, compMock = {}, compStyles = {}} = {}): 
   const stylesReactive = reactive({
     ...compStyles,
   });
+  const layoutsReactive = reactive({
+    ...compLayouts,
+  });
   return {
     ...toRefs(propsReactive),
     ...toRefs(mockReactive),
     styles: stylesReactive,
+    layouts: layoutsReactive,
   };
 }
 

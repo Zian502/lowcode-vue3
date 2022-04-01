@@ -22,7 +22,7 @@
           >
           <template #item="{element}">
             <a-col :span="12" class="border h-46 flex-ali-cen">
-              <renderer :is="element.components" :globalOptions="worksheetData.options" :componentOptions="element.options" />
+              <renderer :type="element.type" :globalOptions="worksheetData.options" :componentOptions="element.options" />
             </a-col>
           </template>
         </draggable>
@@ -34,7 +34,6 @@ import createReactive from '/@/core/utils/createReacitve'
 import draggable from "vuedraggable";
 
 export default defineComponent({
-  name: 'grid',
   components: {
    draggable 
   },

@@ -24,7 +24,13 @@
           >
             <template #item="{element: child}">
               <a-col :class="classOfAcol(child)" :span="worksheetData.layouts.props.span">
-                <renderer :is="child.components" :worksheetData="worksheetData" :child="child" :globalOptions="worksheetData.options" :componentOptions="child.options" />
+                <renderer 
+                  :type="child.type" 
+                  :worksheetData="worksheetData" 
+                  :child="child"
+                  :globalOptions="worksheetData.options" 
+                  :componentOptions="child.options" 
+                  />
               </a-col>
             </template>
         </draggable>
@@ -164,7 +170,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .mid-aside-container{
   background: #fff;
-  flex-basis: 33%;
+  flex-basis: 60%;
   height: 100%;
   padding: 20px 20px;
   .generate-widget{

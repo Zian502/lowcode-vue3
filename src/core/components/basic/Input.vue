@@ -35,16 +35,21 @@ export default defineComponent({
     compStyles: {
       type: Object,
       default: {}
+    },
+    compLayouts: {
+      type: Object,
+      default: {}
     }
   },
   setup(props) {
-    const {compProps, compMock, compStyles } = props;
+    const {compProps, compMock, compStyles, compLayouts } = props;
     let data = createReactive({
       compProps,
       compMock,
       compStyles,
+      compLayouts,
     });
-
+    console.log('data', data)
     return {
       type: toRefs(data).type,
       value: toRefs(data).value,
@@ -52,6 +57,7 @@ export default defineComponent({
       size: toRefs(data).size,
       placeholder: toRefs(data).placeholder,
       autoSize: toRefs(data).autoSize,
+      layouts: toRefs(data).layouts,
     }
   },
 })
@@ -60,5 +66,8 @@ export default defineComponent({
 <style scoped lang="less">
 .basic-input-container{
   width: 100%;
+  .ant-form-item{
+    margin-bottom: 0;
+  }
 }
 </style>

@@ -29,5 +29,71 @@ export default {
   },
   styles:{
     width: '100%'
-  }
+  },
+  setters: [
+    {
+      label: '标签',
+      type: 'input',
+      defaultValue: '输入框',
+    },
+    {
+      label: '数据字段',
+      type: 'input',
+      defaultValue: '',
+    },
+    {
+      label: '输入框type',
+      type: 'input',
+      defaultValue: '',
+    },
+    {
+      label: '占位内容',
+      type: 'input',
+      defaultValue: '',
+    },
+    {
+      label: '宽度',
+      type: 'input',
+      defaultValue: '',
+    },
+    {
+      label: '默认值',
+      type: 'input',
+      defaultValue: '',
+    },
+    {
+      label: '操作属性',
+      type: 'checkbox',
+      defaultValue: '',
+      defaultList: [
+        {
+          label: '隐藏',
+          value: 0
+        },
+        {
+          label: '禁用',
+          value: 1
+        },
+        {
+          label: '可清除',
+          value: 2
+        }
+      ]
+    },
+    {
+      label: '是否必填',
+      type: 'radio',
+      defaultValue: 0,
+      defaultList: [
+        {
+          value: 1,
+          label: '是'
+        },
+        {
+          value: 0,
+          label: '否'
+        }
+      ]
+    }
+  ],
 }

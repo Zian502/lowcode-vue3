@@ -18,6 +18,8 @@ declare module 'vue' {
     ASelect: typeof import('ant-design-vue/es')['Select']
     ASelectOption: typeof import('ant-design-vue/es')['SelectOption']
     ASwitch: typeof import('ant-design-vue/es')['Switch']
+    ATabPane: typeof import('ant-design-vue/es')['TabPane']
+    ATabs: typeof import('ant-design-vue/es')['Tabs']
     ATextarea: typeof import('ant-design-vue/es')['Textarea']
     Form: typeof import('./core/components/layout/Form.vue')['default']
     General: typeof import('./core/components/layout/General.vue')['default']
@@ -30,6 +32,7 @@ declare module 'vue' {
     Renderer: typeof import('./core/renderer/renderer.vue')['default']
     RightAside: typeof import('./pages/worksheet/components/rightAside.vue')['default']
     Select: typeof import('./core/components/basic/Select.vue')['default']
+    SetterPanel: typeof import('./core/components/setter/SetterPanel.vue')['default']
     Switch: typeof import('./core/components/basic/Switch.vue')['default']
     VDraggable: typeof import('./core/vDraggable/vDraggable.vue')['default']
   }

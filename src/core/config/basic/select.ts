@@ -34,5 +34,6 @@ export default {
   },
   styles:{
     width: '100%'
-  }
+  },
+  setters: {},
 }

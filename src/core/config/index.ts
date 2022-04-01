@@ -10,6 +10,9 @@ import * as generalConf from './layout/general';
 import * as gridConf from './layout/grid';
 import * as formConf from './layout/form';
 
+// 设置器面板配置
+import * as setterPanelConf from './setter/setterPanel';
+
 export {
   inputConf,
   radioConf,
@@ -17,5 +20,6 @@ export {
   switchConf,
   generalConf,
   gridConf,
-  formConf
+  formConf,
+  setterPanelConf
 }

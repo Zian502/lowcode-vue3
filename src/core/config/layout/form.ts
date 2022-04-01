@@ -17,5 +17,8 @@ export default {
   },
   mock:{
     columns: [],
-  }
+  },
+  setters: {
+    
+  },
 }

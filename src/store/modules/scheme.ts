@@ -6,18 +6,9 @@ import {
   selectConf,
   switchConf,
   gridConf,
-  formConf
+  formConf,
+  setterPanelConf
 } from '/@/core/config';
-import{
-  Input,
-  Radio,
-  Select,
-  Switch,
-} from '/@/core/components/index';
-import{
-  Grid,
-  Form,
-} from '/@/core/components/index';
 
 export const useSchemesStore = defineStore({
   id: 'scheme',
@@ -49,7 +40,6 @@ export const useSchemesStore = defineStore({
         layouts: {
           name: 'general'
         },
-        components: Input,
       },
       {
         index: 1,
@@ -60,7 +50,6 @@ export const useSchemesStore = defineStore({
         layouts: {
           name: 'general'
         },
-        components: Radio,
       },
       {
         index: 2,
@@ -71,7 +60,6 @@ export const useSchemesStore = defineStore({
         layouts: {
           name: 'general'
         },
-        components: Select,
       },
       {
         index: 3,
@@ -82,7 +70,6 @@ export const useSchemesStore = defineStore({
         layouts: {
           name: 'general'
         },
-        components: Switch,
       }
     ],
     // 高级控件
@@ -98,7 +85,6 @@ export const useSchemesStore = defineStore({
         layouts: {
           name: 'general'
         },
-        components: Grid,
       },
       {
         index: 0,
@@ -109,11 +95,16 @@ export const useSchemesStore = defineStore({
         layouts: {
           name: 'general'
         },
-        components: Form,
       }
     ],
+    // 设置器数据
+    setterData: {
+      panel: setterPanelConf.default.panel
+    },
     // 生成控件
-    generateWidgets: []
+    generateWidgets: [],
+    // 当前操作的控件
+    recordWidget: [],
   }),
   getters: {
     getGlobalOptions():any {
@@ -128,6 +119,12 @@ export const useSchemesStore = defineStore({
     getGenerateWidgets():any {
       return this.generateWidgets
     },
+    getSetterData():any {
+      return this.setterData
+    },
+    getRecordWidget():any {
+      return this.recordWidget
+    }
   },
   actions: {
     handleGetGlobalOptions():any {
@@ -144,6 +141,12 @@ export const useSchemesStore = defineStore({
     },
     handleGetGenerateWidgets():any {
       return this.getGenerateWidgets;
+    },
+    handleGetSetterData():any {
+      return this.getSetterData;
+    },
+    handleGetRecordWidget():any {
+      return this.getRecordWidget;
     }
   }
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="right-aside-container">
-    <raw-displayer :value="generateWidgets" />
+    <setter-panel :recordWidget="recordWidget" :setterData="setterData" />
   </div>
 </template>
 <script>
@@ -10,7 +10,10 @@ const store = useSchemesStore();
 
 export default defineComponent({
   setup() {
-    let generateWidgets = ref([])
+    let setterData = ref([])
+    let recordWidget = ref([])
+    setterData.value = store.getSetterData
+
     const unsubscribe = store.$onAction((
       {
         name,   //action 函数的名称
@@ -19,12 +22,11 @@ export default defineComponent({
         after,  //钩子函数，在action函数执行完成返回或者resolves后执行
         onError // 钩子函数，在action函数报错或者rejects后执行
       }) => {
-        // console.log('name===>', name)
-        // console.log('args===>', args)
-        // console.log('store===>', store)
-
         after(result => {
-          generateWidgets.value = store.generateWidgets
+          setterData.value = store.handleGetSetterData
+          recordWidget.value = store.handleGetRecordWidget
+
+          console.log(recordWidget)
         })
 
         onError(error => {
@@ -37,7 +39,7 @@ export default defineComponent({
     // unsubscribe() // 手动停止订阅
 
     return {
-      generateWidgets
+      setterData
     }
   },
 })
@@ -45,6 +47,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .right-aside-container{
   flex: 1 0 auto;
-  width: 33%;
+  width: 25%;
+  margin-left: 50px;
 }
 </style>

@@ -61,7 +61,7 @@ export default defineComponent({
 
 <style lang="less">
 .left-aside-container{
-  flex-basis: 33%;
+  flex-basis: 20%;
   .v-draggable-list{
     width: 100%;
     &-item{

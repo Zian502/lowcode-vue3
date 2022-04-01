@@ -1,19 +1,22 @@
 <template>
   <div class="renderer-container">
     <component 
-      :is="is" 
+      :is="compInstance" 
       :compProps="componentOptions.props" 
       :compMock="componentOptions.mock" 
       :compStyles="componentOptions.styles" 
+      :compLayouts="componentOptions.layouts"
       :worksheetData="worksheetData"
       :child="child"
       />
   </div>
 </template>
 <script>
+import cache from '/@/core/constants/components'
+
 export default {
   props: {
-    is: {
+    type: {
       type: String,
       default: ''
     },
@@ -32,12 +35,26 @@ export default {
     componentOptions: {
       type: Object,
       default: {}
-    }
+    },
   },
   setup(props) {
 
+    const {
+      type
+    } = props;
+
+    let compType = ref('');
+    let compName = ref('');
+    let compInstance = ref(null);
+    compType.value = type.split('-')[0];
+    compName.value = type.split('-')[1];
+    compInstance.value = cache.get(compName.value);
+
     return {
-      ...toRefs(props)
+      ...toRefs(props),
+      compType,
+      compName,
+      compInstance
     }  
   },
 }
@@ -47,5 +64,6 @@ export default {
   width: 100%;
   display: flex;
   align-items: center;
+  padding: 0 6px;
 }
 </style>

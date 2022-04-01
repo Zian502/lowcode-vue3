@@ -9,7 +9,7 @@
       <a-select-option :value="item.value" v-for="(item) in defaultList" :key="item.value">
         {{item.label}}
       </a-select-option>
-    </a-select>
+    </a-select> 
   </div>
 </template>
 <script lang="ts">
@@ -28,6 +28,10 @@ export default defineComponent({
     compStyles: {
       type: Object,
       default: {}
+    },
+    compLayouts: {
+      type: Object,
+      default: {}
     }
   },
   setup(props) {
@@ -44,6 +48,7 @@ export default defineComponent({
       defaultList: toRefs(data).defaultList,
       allowClear: toRefs(data).allowClear,
       styles: toRefs(data).styles,
+      layouts: toRefs(data).layouts,
     }
   },
 })

@@ -16,7 +16,7 @@
         </a-radio>
       </template>
       <template v-else>
-         <a-radio-button 
+        <a-radio-button 
           :value="item.value" 
           v-for="(item) in defaultList" 
           :key="item.value"
@@ -43,6 +43,10 @@ export default defineComponent({
     compStyles: {
       type: Object,
       default: {}
+    },
+    compLayouts: {
+      type: Object,
+      default: {}
     }
   },
   setup(props) {
@@ -64,6 +68,7 @@ export default defineComponent({
       defaultList: toRefs(data).defaultList,
       size: toRefs(data).size,
       buttonStyle: toRefs(data).buttonStyle,
+      layouts: toRefs(data).layouts,
       handleChange,
     }
   },

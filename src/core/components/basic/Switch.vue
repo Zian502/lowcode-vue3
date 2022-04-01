@@ -7,7 +7,7 @@
       :loading="loading"
       :autofocus="autofocus"
       :style="styles"
-    />
+    />    
   </div>
 </template>
 <script lang="ts">
@@ -24,6 +24,10 @@ export default defineComponent({
       default: {}
     },
     compStyles: {
+      type: Object,
+      default: {}
+    },
+    compLayouts: {
       type: Object,
       default: {}
     }
@@ -43,6 +47,7 @@ export default defineComponent({
       loading: toRefs(data).loading,
       autofocus: toRefs(data).autofocus,
       styles: toRefs(data).styles,
+      layouts: toRefs(data).layouts,
     }
   },
 })

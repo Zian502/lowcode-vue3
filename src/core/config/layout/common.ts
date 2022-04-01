@@ -6,4 +6,5 @@ export default {
   props:{},
   layouts:{},
   styles:{},
+  setters: {},
 }
