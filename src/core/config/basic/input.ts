@@ -13,6 +13,8 @@ export default {
     maxlength: null,
     rows: 1,
     required: false,
+    disabled: false,
+    allowClear: false
   },
   layouts: {
     formItem:{
@@ -176,15 +178,24 @@ export default {
         defaultList: [
           {
             label: '隐藏',
-            value: 'hidden-1'
+            value: {
+              fieldPath: 'options.props.hidden',
+              fieldValue: true
+            }
           },
           {
             label: '禁用',
-            value: 'disabled-1'
+            value: {
+              fieldPath: 'options.props.disabled',
+              fieldValue: true
+            }
           },
           {
             label: '可清除',
-            value: 'allowClear-1'
+            value: {
+              fieldPath: 'options.props.allowClear',
+              fieldValue: true
+            }
           }
         ]
       }
@@ -206,11 +217,17 @@ export default {
         defaultValue: 0,
         defaultList: [
           {
-            value: 'required-1',
+            value: {
+              fieldPath: 'options.props.required',
+              fieldValue: true
+            },
             label: '是',
           },
           {
-            value: 'required-0',
+            value: {
+              fieldPath: 'options.props.required',
+              fieldValue: false
+            },
             label: '否',
           }
         ]

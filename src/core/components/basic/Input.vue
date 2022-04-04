@@ -8,6 +8,8 @@
         :size="size" 
         :placeholder="placeholder"
         :auto-size="autoSize"
+        :disabled="!!disabled"
+        :allowClear="allowClear"
         :style="styles"
         @change="handleChange"
       />
@@ -18,6 +20,7 @@
         :defaultValue="defaultValue"
         :placeholder="placeholder"
         :auto-size="autoSize"
+        :disabled="!!disabled"
         :style="styles"
         @change="handleChange"
       />
@@ -56,7 +59,8 @@ export default defineComponent({
   },
   emits: ['change'],
   setup(props, {emit}) {
-        const {compProps, compMock, compStyles, compLayouts } = props;
+
+    const {compProps, compMock, compStyles, compLayouts } = props;
     let data = createReactive({
       compProps,
       compMock,
@@ -81,7 +85,7 @@ export default defineComponent({
           'colon' : props.layout === 'general'
         },
         {
-         'required' : toRefs(data).required
+         'required' : !!toRefs(data).required.value
         }
       ]
     });
@@ -94,6 +98,8 @@ export default defineComponent({
       size: toRefs(data).size,
       placeholder: toRefs(data).placeholder,
       autoSize: toRefs(data).autoSize,
+      disabled: toRefs(data).disabled,
+      allowClear: toRefs(data).allowClear,
       layouts: toRefs(data).layouts,
       styles: toRefs(data).styles,
       labelClass,

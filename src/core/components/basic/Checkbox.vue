@@ -10,6 +10,7 @@
         v-for="(item) in defaultList" 
         :value="item.value" 
         :key="item.value"
+        :disabled="!!disabled"
         >
           {{item.label}}
         </a-checkbox>
@@ -47,7 +48,7 @@ export default defineComponent({
     }
   },
   emits: ['change'],
-  setup(props) {
+  setup(props, { emit }) {
 
     const {compProps, compMock, compStyles, compLayouts } = props;
     let data = createReactive({
@@ -66,12 +67,20 @@ export default defineComponent({
           'colon' : props.layout === 'general'
         },
         {
-         'required' : toRefs(data).required
+         'required' : !!toRefs(data).required.value
         }
       ]
     });
 
-
+    // 方法 
+    const handleChange = (e) => {
+      const value = e.target ? e.target.value : e;
+      emit('change', {
+        value,
+        props,
+        defaultList: toRefs(data).defaultList.value
+      })
+    }
 
     return {
       type: toRefs(data).type,
@@ -80,8 +89,10 @@ export default defineComponent({
       defaultValue:toRefs(data).defaultValue,
       defaultList: toRefs(data).defaultList,
       size: toRefs(data).size,
+      disabled: !!toRefs(data).disabled,
       styles: toRefs(data).styles,
       labelClass,
+      handleChange,
     }
   },
 })

@@ -10,6 +10,7 @@ export default {
     buttonStyle: 'outline',
     optionType: 'default',
     required: false,
+    disabled: false,
   },
   layouts: {
     formItem:{

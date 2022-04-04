@@ -14,6 +14,7 @@
           :value="item.value" 
           v-for="(item) in defaultList" 
           :key="item.value"
+          :disabled="!!disabled"
           >
           {{item.label}}
         </a-radio>
@@ -61,7 +62,7 @@ export default defineComponent({
     }
   },
   emits: ['change'],
-  setup(props) {
+  setup(props, { emit }) {
     const {compProps, compMock, compStyles } = props;
     let data = createReactive({
       compProps,
@@ -77,15 +78,18 @@ export default defineComponent({
           'colon' : props.layout === 'general'
         },
         {
-         'required' : toRefs(data).required
+         'required' : !!toRefs(data).required.value
         }
       ]
     });
 
-    // 方法
+    // 方法 
     const handleChange = (e) => {
       const value = e.target.value;
-      data.value = value
+      emit('change', {
+        value,
+        props
+      })
     }
 
     return {
@@ -95,6 +99,7 @@ export default defineComponent({
       defaultList: toRefs(data).defaultList,
       size: toRefs(data).size,
       buttonStyle: toRefs(data).buttonStyle,
+      disabled: !!toRefs(data).disabled,
       layouts: toRefs(data).layouts,
       styles: toRefs(data).styles,
       labelClass,

@@ -8,6 +8,7 @@ export default {
     value: '',
     allowClear: false,
     required: false,
+    disabled: false,
   },
   layouts: {
     formItem:{

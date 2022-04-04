@@ -4,7 +4,7 @@
     <a-switch
       v-model:checked="checked" 
       :size="size"
-      :disabled="disabled"
+      :disabled="!!disabled"
       :loading="loading"
       :autofocus="autofocus"
       :style="styles"
@@ -42,7 +42,7 @@ export default defineComponent({
     }
   },
   emits: ['change'],
-  setup(props) {
+  setup(props, { emit }) {
     const {compProps, compMock, compStyles } = props;
     let data = createReactive({
       compProps,
@@ -59,15 +59,18 @@ export default defineComponent({
           'colon' : props.layout === 'general'
         },
         {
-         'required' : toRefs(data).required
+         'required' : !!toRefs(data).required.value
         }
       ]
     });
 
-    // 方法
+    // 方法 
     const handleChange = (e) => {
       const value = e.target.value;
-      data.value = value
+      emit('change', {
+        value,
+        props
+      })
     }
 
     return {
@@ -78,6 +81,7 @@ export default defineComponent({
       disabled: toRefs(data).disabled,
       loading: toRefs(data).loading,
       autofocus: toRefs(data).autofocus,
+      disabled: !!toRefs(data).disabled,
       styles: toRefs(data).styles,
       layouts: toRefs(data).layouts,
       labelClass,

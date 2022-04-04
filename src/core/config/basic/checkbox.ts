@@ -9,6 +9,7 @@ export default {
     size: 'default',
     placeholder: '请输入',
     required: false,
+    disabled: false,
   },
   layouts: {
     formItem:{

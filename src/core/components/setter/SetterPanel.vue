@@ -53,28 +53,40 @@ export default defineComponent({
       deep: true
     })
 
-    const handleChange = ({value, props}={}) => {
-      console.log(value)
-      console.log(props)
+    const handleChange = ({value, props, defaultList = []}={}) => {
+      console.log('value', value)
+      console.log('props', props)
       const setFieldsPath = props.setFieldsPath;
-      let field = null
-      let handleValue = value
-      if(value.indexOf('-')!==-1){
-        field = value.split('-')[0]
-        handleValue = value.split('-')[1]
-      }
+      let handleSetFieldsPath = [];
+      let field = null;
+      if(Array.isArray(value) ){
+        if(Array.isArray(defaultList)){
+          defaultList.forEach((item) => {
+            handleSetFieldsPath.push({
+              fieldPath: item.value.fieldPath,
+              fieldValue: !item.value.fieldValue
+            })
+          });
+          handleSetFieldsPath = [...handleSetFieldsPath, ...value];
+        }
+      } 
+      console.log('handleSetFieldsPath', handleSetFieldsPath)
       if(Array.isArray(setFieldsPath) && setFieldsPath.length > 1) {
-        setFieldsPath.forEach((item, index) => {
-          if(item.indexOf(field) !== -1){
-            store.setFieldValue({
-              [setFieldsPath[index]]: handleValue
-            });
-          }
+        handleSetFieldsPath.forEach((item, index) => {
+          store.setFieldValue({
+            [item.fieldPath]: item.fieldValue
+          });
         })
       } else if (Array.isArray(setFieldsPath) && setFieldsPath.length === 1) {
-        store.setFieldValue({
-          [setFieldsPath[0]]: handleValue
-        });
+        if(typeof value === 'object'){
+           store.setFieldValue({
+            [value.fieldPath]: value.fieldValue
+          });
+        } else {
+          store.setFieldValue({
+            [setFieldsPath[0]]: value
+          });
+        }
       }
     }
 
