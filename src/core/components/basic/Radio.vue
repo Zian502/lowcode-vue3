@@ -1,10 +1,13 @@
 <template>
-  <div class="basic-radio-container">
+  <div class="basic-radio-container flex-ali-cen">
+    <span v-if="layout === 'general'" :class="labelClass">{{label}}</span>
     <a-radio-group 
       v-model:value="value" 
       :defaultValue="defaultValue"
       :size="size"
+      :style="styles"
       :button-style="buttonStyle"
+      @change="handleChange"
       >
       <template v-if="buttonStyle === 'outline'">
         <a-radio 
@@ -32,6 +35,10 @@ import createReactive from '/@/core/utils/createReacitve'
 
 export default defineComponent({
   props: {
+    layout: {
+      type: String,
+      default: 'layout'
+    },
     compProps: {
       type: Array,
       default: {}
@@ -47,8 +54,13 @@ export default defineComponent({
     compLayouts: {
       type: Object,
       default: {}
+    },
+    setFieldsPath: {
+      type:Array,
+      default: []
     }
   },
+  emits: ['change'],
   setup(props) {
     const {compProps, compMock, compStyles } = props;
     let data = createReactive({
@@ -57,6 +69,20 @@ export default defineComponent({
       compStyles,
     });
 
+    // 计算属性
+    const labelClass = computed(() => {
+      return [
+        'basic-label',
+        {
+          'colon' : props.layout === 'general'
+        },
+        {
+         'required' : toRefs(data).required
+        }
+      ]
+    });
+
+    // 方法
     const handleChange = (e) => {
       const value = e.target.value;
       data.value = value
@@ -64,11 +90,14 @@ export default defineComponent({
 
     return {
       value: toRefs(data).value,
+      label: toRefs(data).label,
       defaultValue: toRefs(data).defaultValue,
       defaultList: toRefs(data).defaultList,
       size: toRefs(data).size,
       buttonStyle: toRefs(data).buttonStyle,
       layouts: toRefs(data).layouts,
+      styles: toRefs(data).styles,
+      labelClass,
       handleChange,
     }
   },

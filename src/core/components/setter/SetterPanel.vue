@@ -6,20 +6,23 @@
       >
       <a-tab-pane v-for="item in mock.defaultList" :key="item.key" :tab="item.tab">
         <div class="tab-panel-content">
-          <a-from>
-            <a-form-item
-                v-for="(item, index) in setters" :key="index"
-                :label="item.label"
-              >
-                <renderer :type="item.type" :globalOptions="worksheetData.options" :componentOptions="item" />
-            </a-form-item>
-          </a-from>
+          <template v-for="(item, index) in setters" :key="index">
+            <renderer 
+              :type="item.type" 
+              :globalOptions="worksheetData.options" 
+              :componentOptions="item" 
+              @change="handleChange"
+            />
+          </template>
         </div>
       </a-tab-pane>
     </a-tabs>
   </div>
 </template>
 <script>
+import { useSchemesStore } from '/@/store/modules/scheme';
+
+const store = useSchemesStore();
 
 export default defineComponent({
   name: 'SetterPanel',
@@ -50,12 +53,38 @@ export default defineComponent({
       deep: true
     })
 
+    const handleChange = ({value, props}={}) => {
+      console.log(value)
+      console.log(props)
+      const setFieldsPath = props.setFieldsPath;
+      let field = null
+      let handleValue = value
+      if(value.indexOf('-')!==-1){
+        field = value.split('-')[0]
+        handleValue = value.split('-')[1]
+      }
+      if(Array.isArray(setFieldsPath) && setFieldsPath.length > 1) {
+        setFieldsPath.forEach((item, index) => {
+          if(item.indexOf(field) !== -1){
+            store.setFieldValue({
+              [setFieldsPath[index]]: handleValue
+            });
+          }
+        })
+      } else if (Array.isArray(setFieldsPath) && setFieldsPath.length === 1) {
+        store.setFieldValue({
+          [setFieldsPath[0]]: handleValue
+        });
+      }
+    }
+
     return {
       ...toRef(props),
       ...toRefs(setterData.panel.props),
       panel: toRefs(setterData.panel),
       mock: toRefs(setterData.panel).mock,
       setters,
+      handleChange,
     }
   },
 })

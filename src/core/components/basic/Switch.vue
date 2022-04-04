@@ -1,5 +1,6 @@
 <template>
-  <div class="basic-switch-container">
+  <div class="basic-switch-container flex-ali-cen">
+    <span v-if="layout === 'general'" :class="labelClass">{{label}}</span>
     <a-switch
       v-model:checked="checked" 
       :size="size"
@@ -15,6 +16,10 @@ import createReactive from '/@/core/utils/createReacitve'
 
 export default defineComponent({
   props: {
+    layout: {
+      type: String,
+      default: 'layout'
+    },
     compProps: {
       type: Object,
       default: {}
@@ -30,8 +35,13 @@ export default defineComponent({
     compLayouts: {
       type: Object,
       default: {}
+    },
+    setFieldsPath: {
+      type:Array,
+      default: []
     }
   },
+  emits: ['change'],
   setup(props) {
     const {compProps, compMock, compStyles } = props;
     let data = createReactive({
@@ -40,7 +50,29 @@ export default defineComponent({
       compStyles,
     });
 
+    // 计算属性
+    const labelClass = computed(() => {
+      console.log('props.layout', props.layout)
+      return [
+        'basic-label',
+        {
+          'colon' : props.layout === 'general'
+        },
+        {
+         'required' : toRefs(data).required
+        }
+      ]
+    });
+
+    // 方法
+    const handleChange = (e) => {
+      const value = e.target.value;
+      data.value = value
+    }
+
     return {
+      layout: props.layout,
+      label: toRefs(data).label,
       checked: toRefs(data).checked,
       size:toRefs(data).size,
       disabled: toRefs(data).disabled,
@@ -48,6 +80,8 @@ export default defineComponent({
       autofocus: toRefs(data).autofocus,
       styles: toRefs(data).styles,
       layouts: toRefs(data).layouts,
+      labelClass,
+      handleChange,
     }
   },
 })

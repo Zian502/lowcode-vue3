@@ -22,7 +22,7 @@
           >
           <template #item="{element}">
             <a-col :span="12" class="border h-46 flex-ali-cen">
-              <renderer :type="element.type" :globalOptions="worksheetData.options" :componentOptions="element.options" />
+              <renderer layout="grid" :type="element.type" :globalOptions="worksheetData.options" :componentOptions="element.options" />
             </a-col>
           </template>
         </draggable>

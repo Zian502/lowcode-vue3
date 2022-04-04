@@ -9,6 +9,7 @@ export default {
     size: 'default',
     buttonStyle: 'outline',
     optionType: 'default',
+    required: false,
   },
   layouts: {
     formItem:{
@@ -39,6 +40,7 @@ export default {
   },
   setters: [
     {
+      name: 'setter',
       label: '标签',
       type: 'basic-input',
       props: {
@@ -50,12 +52,14 @@ export default {
         autoSize: true,
         maxlength: null,
         rows: 1,
+        required: false,
       },
       mock: {
         defaultValue: '输入框',
       }
     },
     {
+      name: 'setter',
       label: '数据字段',
       type: 'basic-input',
       props: {
@@ -67,13 +71,15 @@ export default {
         autoSize: true,
         maxlength: null,
         rows: 1,
+        required: false,
       },
       mock: {
         defaultValue: '',
       }
     },
     {
-      label: '输入框type',
+      name: 'setter',
+      label: '输入框',
       type: 'basic-input',
       props: {
         label: '输入框',
@@ -84,12 +90,14 @@ export default {
         autoSize: true,
         maxlength: null,
         rows: 1,
+        required: false,
       },
       mock: {
         defaultValue: '',
       }
     },
     {
+      name: 'setter',
       label: '占位内容',
       type: 'basic-input',
       props: {
@@ -101,12 +109,14 @@ export default {
         autoSize: true,
         maxlength: null,
         rows: 1,
+        required: false,
       },
       mock: {
         defaultValue: '',
       }
     },
     {
+      name: 'setter',
       label: '宽度',
       type: 'basic-input',
       props: {
@@ -118,12 +128,14 @@ export default {
         autoSize: true,
         maxlength: null,
         rows: 1,
+        required: false,
       },
       mock: {
         defaultValue: '',
       }
     },
     {
+      name: 'setter',
       label: '默认值',
       type: 'basic-input',
       props: {
@@ -135,12 +147,14 @@ export default {
         autoSize: true,
         maxlength: null,
         rows: 1,
+        required: false,
       },
       mock: {
         defaultValue: '',
       }
     },
     {
+      name: 'setter',
       label: '操作属性',
       type: 'basic-checkbox',
       props: {
@@ -148,6 +162,7 @@ export default {
         value: [],
         size: 'default',
         placeholder: '请输入',
+        required: false,
       },
       mock: {
         defaultValue: '',
@@ -168,6 +183,7 @@ export default {
       }
     },
     {
+      name: 'setter',
       label: '是否必填',
       type: 'basic-radio',
       props: {
@@ -176,6 +192,7 @@ export default {
         size: 'default',
         buttonStyle: 'outline',
         optionType: 'default',
+        required: false,
       },
       mock: {
         defaultValue: 0,

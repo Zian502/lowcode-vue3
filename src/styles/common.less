@@ -63,3 +63,26 @@
       align-items: center;
     }
   }
+
+  .basic-label{
+    flex: 0 0 auto;
+  }
+  .colon{
+    &::after{
+      content: ':';
+      position: relative;
+      top: -0.5px;
+      margin: 0 8px 0 2px;
+    }
+  }
+  .required{
+    &::before{
+      content: "*";
+      display: inline-block;
+      margin-right: 4px;
+      color: #ff4d4f;
+      font-size: 14px;
+      font-family: SimSun,sans-serif;
+      line-height: 1;
+    }
+  }

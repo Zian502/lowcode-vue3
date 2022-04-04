@@ -10,6 +10,8 @@ import {
   formConf,
   setterPanelConf
 } from '/@/core/config';
+import _set from 'loadsh/set';
+import _get from 'loadsh/get';
 
 export const useSchemesStore = defineStore({
   id: 'scheme',
@@ -169,6 +171,18 @@ export const useSchemesStore = defineStore({
     },
     handleSetRecordWidget(value:any):any {
       this.recordWidget = value;
+    },
+    setFieldValue(fieldValMap: object): void {
+      Object.keys(fieldValMap).map((path) => {
+        _set(this.recordWidget, path, fieldValMap[path])
+      })
+    },
+    getFieldValue(fields: Array<string>): any {
+      let obj = {};
+      fields.forEach((path) => {
+        obj[path] = _get(this.recordWidget, path , '')
+      });
+      return obj;
     }
   }
 })

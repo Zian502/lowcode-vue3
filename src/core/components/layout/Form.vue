@@ -27,7 +27,7 @@
                 :label="element.options.layouts.formItem.label"
                 :rules="element.options.layouts.formItem.rules"
               >
-                <renderer :type="element.type" :globalOptions="worksheetData.options" :componentOptions="element.options" />
+                <renderer layout="form" :type="element.type" :globalOptions="worksheetData.options" :componentOptions="element.options" />
               </a-form-item>
             </a-col>
           </template>

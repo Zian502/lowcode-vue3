@@ -60,6 +60,7 @@ export default defineComponent({
       },
       recordWidget: [],
     });
+    let widget = ref([]);
 
     let dataSource = ref([]);
     dataSource.value = store.handleGetBasicWidgets();
@@ -73,7 +74,50 @@ export default defineComponent({
       deep: true
     });
 
+    // 动态更新
+    const unsubscribe = store.$onAction((
+      {
+        name,   //action 函数的名称
+        store,  //store 实例
+        args,   //action 函数参数数组
+        after,  //钩子函数，在action函数执行完成返回或者resolves后执行
+        onError // 钩子函数，在action函数报错或者rejects后执行
+      }) => {
+        after(result => {
+          console.log('name', name)
+          if(name === 'setFieldValue') {
+            data.recordWidget = store.getRecordWidget
+            _updateWorksheetData(data.recordWidget.parentId, data.recordWidget.id, data.recordWidget)
+            console.log('data', data)
+          }
+        })
+
+        onError(error => {
+          
+        })
+      },
+      false  //默认是false，设置为true的时候，组件卸载时，订阅依然有效
+    )
+
     // 方法
+    const _updateWorksheetData = (supId, id, value) => {
+      data.worksheetData.widgets.forEach((widget, index) => {
+        if(supId === widget.id) {
+          widget.childs.forEach((child, i) => {
+            if(id === child.id) {
+              widget.value = value
+              // delete
+              data.worksheetData.widgets[index].childs.splice(i, 1)
+              // insert
+              setTimeout(() => {
+                data.worksheetData.widgets[index].childs[i] = widget.value
+              })
+            }
+          })
+        }
+      })
+    }
+
     const _insertNode = () => {
       const arr = [];
       data.worksheetData.widgets.forEach((item) => {
@@ -110,8 +154,9 @@ export default defineComponent({
 
     const handleAdd = (e) => {
       const newIndex = e.newIndex;
+      const parentId = shortid.generate()
       const obj = {
-        id: shortid.generate(),
+        id: parentId,
         type: "transfer",
         childs: [],
       };
@@ -121,11 +166,12 @@ export default defineComponent({
         name: 'general',
         props: {}
       };
-      // 子集控件
-      obj.childs.push({ ...curWidget });
-      data.worksheetData.widgets.splice(newIndex, 0, obj); //
+      widget.value = { ...curWidget, parentId}
       // 
-      store.handleSetRecordWidget(curWidget);
+      obj.childs.push(widget.value);
+      data.worksheetData.widgets.splice(newIndex, 0, obj); //
+      // set recordWidget
+      store.handleSetRecordWidget(widget.value);
       _deleteNode();
     }
 

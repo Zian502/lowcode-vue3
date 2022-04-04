@@ -29,6 +29,7 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
     "ant-design-vue": "^2.2.8",
+    "loadsh": "0.0.4",
     "pinia": "^2.0.3",
     "shortid": "^2.2.16",
     "uuid": "^8.3.2",
