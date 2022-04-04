@@ -81,7 +81,6 @@ export default defineComponent({
       disabled: toRefs(data).disabled,
       loading: toRefs(data).loading,
       autofocus: toRefs(data).autofocus,
-      disabled: !!toRefs(data).disabled,
       styles: toRefs(data).styles,
       layouts: toRefs(data).layouts,
       labelClass,
