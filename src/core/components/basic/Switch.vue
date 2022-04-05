@@ -4,8 +4,9 @@
     <a-switch
       v-model:checked="checked" 
       :size="size"
-      :disabled="!!disabled"
+      :disabled="disabled"
       :loading="loading"
+      :hidden="hidden"
       :autofocus="autofocus"
       :style="styles"
     />    
@@ -81,6 +82,7 @@ export default defineComponent({
       disabled: toRefs(data).disabled,
       loading: toRefs(data).loading,
       autofocus: toRefs(data).autofocus,
+      hidden: toRefs(data).hidden,
       styles: toRefs(data).styles,
       layouts: toRefs(data).layouts,
       labelClass,

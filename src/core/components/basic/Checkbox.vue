@@ -4,13 +4,14 @@
     <a-checkbox-group 
       v-model:value="value" 
       :style="styles"
+      :hidden="hidden"
       @change="handleChange"
       >
         <a-checkbox 
         v-for="(item) in defaultList" 
         :value="item.value" 
         :key="item.value"
-        :disabled="!!disabled"
+        :disabled="disabled"
         >
           {{item.label}}
         </a-checkbox>
@@ -89,7 +90,8 @@ export default defineComponent({
       defaultValue:toRefs(data).defaultValue,
       defaultList: toRefs(data).defaultList,
       size: toRefs(data).size,
-      disabled: !!toRefs(data).disabled,
+      disabled: toRefs(data).disabled,
+      hidden: toRefs(data).hidden,
       styles: toRefs(data).styles,
       labelClass,
       handleChange,

@@ -172,14 +172,14 @@ export const useSchemesStore = defineStore({
     handleSetRecordWidget(value:any):any {
       this.recordWidget = value;
     },
-    setFieldValue(fieldValMap: object): void {
-      Object.keys(fieldValMap).map((path) => {
-        _set(this.recordWidget, path, fieldValMap[path])
+    setFieldValue(fieldPathValMap: object): void {
+      Object.keys(fieldPathValMap).map((path) => {
+        _set(this.recordWidget, path, fieldPathValMap[path])
       })
     },
-    getFieldValue(fields: Array<string>): any {
+    getFieldValue(fieldsPath: Array<string>): any {
       let obj = {};
-      fields.forEach((path) => {
+      fieldsPath.forEach((path) => {
         obj[path] = _get(this.recordWidget, path , '')
       });
       return obj;

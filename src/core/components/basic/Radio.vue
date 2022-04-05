@@ -6,6 +6,7 @@
       :defaultValue="defaultValue"
       :size="size"
       :style="styles"
+      :hidden="hidden"
       :button-style="buttonStyle"
       @change="handleChange"
       >
@@ -14,7 +15,7 @@
           :value="item.value" 
           v-for="(item) in defaultList" 
           :key="item.value"
-          :disabled="!!disabled"
+          :disabled="disabled"
           >
           {{item.label}}
         </a-radio>
@@ -99,7 +100,8 @@ export default defineComponent({
       defaultList: toRefs(data).defaultList,
       size: toRefs(data).size,
       buttonStyle: toRefs(data).buttonStyle,
-      disabled: !!toRefs(data).disabled,
+      disabled: toRefs(data).disabled,
+      hidden: toRefs(data).hidden,
       layouts: toRefs(data).layouts,
       styles: toRefs(data).styles,
       labelClass,

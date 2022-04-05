@@ -11,6 +11,7 @@ export default {
     optionType: 'default',
     required: false,
     disabled: false,
+    hidden: false,
   },
   layouts: {
     formItem:{
@@ -34,17 +35,69 @@ export default {
         value: 0,
         label: '否'
       }
-    ]
+    ],
+    setterFieldsPath: [
+      {
+        sourceFieldPath: 'options.props.label',
+        destFieldPath: 'options.setters[0].mock.value',
+        destFieldValue: ''
+      },
+      {
+        sourceFieldPath: 'id',
+        destFieldPath: 'options.setters[1].mock.value',
+        destFieldValue: ''
+      },
+      {
+        sourceFieldPath: 'options.props.type',
+        destFieldPath: 'options.setters[2].mock.value',
+        destFieldValue: ''
+      },
+      {
+        sourceFieldPath: 'options.props.placeholder',
+        destFieldPath: 'options.setters[3].mock.value',
+        destFieldValue: ''
+      },
+      {
+        sourceFieldPath: 'options.styles.width',
+        destFieldPath: 'options.setters[4].mock.value',
+        destFieldValue: ''
+      },
+      {
+        sourceFieldPath: 'options.mock.defaultValue',
+        destFieldPath: 'options.setters[5].mock.value',
+        destFieldValue: ''
+      },
+      {
+        sourceFieldPath: 'options.props.hidden',
+        destFieldPath: 'options.setters[6].mock.value',
+        destFieldValue: ''
+      },
+      {
+        sourceFieldPath: 'options.props.disabled',
+        destFieldPath: 'options.setters[6].mock.value',
+        destFieldValue: ''
+      },
+      {
+        sourceFieldPath: 'options.props.allowClear',
+        destFieldPath: 'options.setters[6].mock.value',
+        destFieldValue: ''
+      },
+      {
+        sourceFieldPath: 'options.props.required',
+        destFieldPath: 'options.setters[7].mock.value',
+        destFieldValue: ''
+      }
+    ],
   },
   styles:{
     width: '100%'
   },
   setters: [
     {
+      tabIndex: '0',
       name: 'setter',
       label: '标签',
       type: 'basic-input',
-      setFieldsPath: ['options.props.label'],
       props: {
         label: '标签',
         type: 'input',
@@ -57,18 +110,25 @@ export default {
         required: false,
       },
       mock: {
-        value: '输入框',
-        defaultValue: '输入框',
+        value: '',
+        defaultValue: '',
+        setterFieldsPath: [
+          {
+            sourceFieldPath: 'options.setters[0].mock.value',
+            destFieldPath: 'options.props.label',
+            destFieldValue: ''
+          }
+        ]
       },
       styles: {
 
       }
     },
     {
+      tabIndex: '0',
       name: 'setter',
       label: '数据字段',
       type: 'basic-input',
-      setFieldsPath: ['options.props.id'],
       props: {
         label: '数据字段',
         type: 'input',
@@ -81,14 +141,22 @@ export default {
         required: false,
       },
       mock: {
+        value: '',
         defaultValue: '',
+        setterFieldsPath: [
+          {
+            sourceFieldPath: 'options.setters[1].mock.value',
+            destFieldPath: 'options.props.id',
+            destFieldValue: ''
+          }
+        ]
       }
     },
     {
+      tabIndex: '0',
       name: 'setter',
       label: '输入框类型',
       type: 'basic-input',
-      setFieldsPath: ['options.props.type'],
       props: {
         label: '输入框类型',
         type: 'input',
@@ -101,14 +169,22 @@ export default {
         required: false,
       },
       mock: {
+        value: '',
         defaultValue: '',
+        setterFieldsPath: [
+          {
+            sourceFieldPath: 'options.setters[2].mock.value',
+            destFieldPath: 'options.props.type',
+            destFieldValue: ''
+          }
+        ]
       }
     },
     {
+      tabIndex: '0',
       name: 'setter',
       label: '占位内容',
       type: 'basic-input',
-      setFieldsPath: ['options.props.placeholder'],
       props: {
         label: '占位内容',
         type: 'input',
@@ -121,14 +197,22 @@ export default {
         required: false,
       },
       mock: {
+        value: '',
         defaultValue: '',
+        setterFieldsPath: [
+          {
+            sourceFieldPath: 'options.setters[3].mock.value',
+            destFieldPath: 'options.props.placeholder',
+            destFieldValue: ''
+          }
+        ]
       }
     },
     {
+      tabIndex: '0',
       name: 'setter',
       label: '宽度',
       type: 'basic-input',
-      setFieldsPath: ['options.styles.width'],
       props: {
         label: '宽度',
         type: 'input',
@@ -141,17 +225,25 @@ export default {
         required: false,
       },
       mock: {
+        value: '',
         defaultValue: '',
+        setterFieldsPath: [
+          {
+            sourceFieldPath: 'options.setters[4].mock.value',
+            destFieldPath: 'options.styles.width',
+            destFieldValue: ''
+          }
+        ]
       },
       styles: {
         width: '100%'
       }
     },
     {
+      tabIndex: '0',
       name: 'setter',
       label: '默认值',
       type: 'basic-input',
-      setFieldsPath: ['options.mock.defaultValue'],
       props: {
         label: '默认值',
         type: 'input',
@@ -164,14 +256,22 @@ export default {
         required: false,
       },
       mock: {
+        value: '',
         defaultValue: '',
+        setterFieldsPath: [
+          {
+            sourceFieldPath: 'options.setters[5].mock.value',
+            destFieldPath: 'options.mock.defaultValue',
+            destFieldValue: ''
+          }
+        ]
       }
     },
     {
+      tabIndex: '0',
       name: 'setter',
       label: '操作属性',
       type: 'basic-checkbox',
-      setFieldsPath: ['options.props.hidden', 'options.props.disabled', 'options.props.allowClear'],
       props: {
         label: '操作属性',
         value: [],
@@ -180,37 +280,46 @@ export default {
         required: false,
       },
       mock: {
+        value: '',
         defaultValue: '',
         defaultList: [
           {
             label: '隐藏',
-            value: {
-              fieldPath: 'options.props.hidden',
-              fieldValue: true
-            }
+            value: 'options.props.hidden'
           },
           {
             label: '禁用',
-            value: {
-              fieldPath: 'options.props.disabled',
-              fieldValue: true
-            }
+            value: 'options.props.disabled'
           },
           {
             label: '可清除',
-            value: {
-              fieldPath: 'options.props.allowClear',
-              fieldValue: true
-            }
+            value: 'options.props.allowClear'
+          }
+        ],
+        setterFieldsPath: [
+          {
+            sourceFieldPath: 'options.setters[6].mock.value',
+            destFieldPath: 'options.props.hidden',
+            destFieldValue: ''
+          },
+          {
+            sourceFieldPath: 'options.setters[6].mock.value',
+            destFieldPath: 'options.props.disabled',
+            destFieldValue: ''
+          },
+          {
+            sourceFieldPath: 'options.setters[6].mock.value',
+            destFieldPath: 'options.props.allowClear',
+            destFieldValue: ''
           }
         ]
       }
     },
     {
+      tabIndex: '0',
       name: 'setter',
       label: '是否必填',
       type: 'basic-radio',
-      setFieldsPath: ['options.props.required'],
       props: {
         label: '是否必填',
         value: '',
@@ -220,21 +329,23 @@ export default {
         required: false,
       },
       mock: {
-        defaultValue: 0,
+        value: '',
+        defaultValue: '',
         defaultList: [
           {
-            value: {
-              fieldPath: 'options.props.required',
-              fieldValue: true
-            },
+            value: true,
             label: '是',
           },
           {
-            value: {
-              fieldPath: 'options.props.required',
-              fieldValue: false
-            },
+            value: false,
             label: '否',
+          }
+        ],
+        setterFieldsPath: [
+          {
+            sourceFieldPath: 'options.setters[7].mock.value',
+            destFieldPath: 'options.props.required',
+            destFieldValue: ''
           }
         ]
       }

@@ -5,7 +5,8 @@
       v-model:value="value" 
       :defaultValue="defaultValue"
       :allowClear="allowClear"
-      :disabled="!!disabled"
+      :disabled="disabled"
+      :hidden="hidden"
       :style="styles"
       @change="handleChange"
       >
@@ -87,7 +88,8 @@ export default defineComponent({
       defaultValue:toRefs(data).defaultValue,
       defaultList: toRefs(data).defaultList,
       allowClear: toRefs(data).allowClear,
-      disabled: !!toRefs(data).disabled,
+      disabled: toRefs(data).disabled,
+      hidden: toRefs(data).hidden,
       styles: toRefs(data).styles,
       layouts: toRefs(data).layouts,
       labelClass,

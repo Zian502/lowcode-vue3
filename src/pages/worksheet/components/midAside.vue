@@ -31,6 +31,8 @@
                   :globalOptions="worksheetData.options" 
                   :componentOptions="child.options" 
                   />
+                  <!-- mask layer -->
+                  <div class="mask-layer-container"></div>
               </a-col>
             </template>
         </draggable>
@@ -43,6 +45,10 @@ import draggable from "vuedraggable";
 import shortid from "shortid";
 import { General } from '/@/core/components';
 import { useSchemesStore } from '/@/store/modules/scheme';
+import _set from 'loadsh/set';
+import _get from 'loadsh/get';
+import _cloneDeep from 'loadsh/cloneDeep';
+
 const store = useSchemesStore();
 
 export default defineComponent({
@@ -61,6 +67,7 @@ export default defineComponent({
       recordWidget: [],
     });
     let widget = ref([]);
+    let setters = ref([]);
 
     let dataSource = ref([]);
     dataSource.value = store.handleGetBasicWidgets();
@@ -77,10 +84,10 @@ export default defineComponent({
     // 动态更新
     const unsubscribe = store.$onAction((
       {
-        name,   //action 函数的名称
-        store,  //store 实例
-        args,   //action 函数参数数组
-        after,  //钩子函数，在action函数执行完成返回或者resolves后执行
+        name,   // action 函数的名称
+        store,  // store 实例
+        args,   // action 函数参数数组
+        after,  // 钩子函数，在action函数执行完成返回或者resolves后执行
         onError // 钩子函数，在action函数报错或者rejects后执行
       }) => {
         after(result => {
@@ -88,7 +95,13 @@ export default defineComponent({
           if(name === 'setFieldValue') {
             data.recordWidget = store.getRecordWidget
             _updateWorksheetData(data.recordWidget.parentId, data.recordWidget.id, data.recordWidget)
-            console.log('data', data)
+          } else if (name === 'handleSetRecordWidget') {
+            // update setters
+            // clone deep
+            setters.value = _cloneDeep(data.recordWidget.options.setters);
+            const setterFieldsPath = data.recordWidget.options.mock.setterFieldsPath || [];
+            _updateRecordSetters(data.recordWidget.parentId, data.recordWidget.id, setterFieldsPath)
+            console.log('data.recordWidget', data.recordWidget)
           }
         })
 
@@ -100,18 +113,59 @@ export default defineComponent({
     )
 
     // 方法
+    const _updateRecordSetters = (supId, id, setterFieldsPath = []) => {
+      data.worksheetData.widgets.forEach((widget, index) => {
+        if(supId === widget.id) {
+          widget.childs.forEach((child, i) => {
+            if(id === child.id) {
+              if(setterFieldsPath.length>0){
+                let obj = {};
+                // handle
+                setterFieldsPath.forEach((item) => {
+                  // get
+                  const sourceFieldValue = _get(child,item.sourceFieldPath, '');
+                  if(!obj[item.destFieldPath]){
+                    obj[item.destFieldPath] = {
+                      values: [],
+                      paths: []
+                    };
+                    obj[item.destFieldPath].values.push(sourceFieldValue);
+                    if(sourceFieldValue){
+                      obj[item.destFieldPath].paths.push(item.sourceFieldPath);
+                    };
+                  } else {
+                    obj[item.destFieldPath].values.push(sourceFieldValue);
+                    if(sourceFieldValue){
+                      obj[item.destFieldPath].paths.push(item.sourceFieldPath);
+                    };
+                  };
+                  // delete
+                  delete child.options.setters;
+                  // set
+                  nextTick(() => {
+                    child.options.setters = setters.value;
+                    _set(child,item.destFieldPath,obj[item.destFieldPath].values.length > 1 ? obj[item.destFieldPath].paths : obj[item.destFieldPath].values[0]);
+                  });
+                });
+              }
+            }
+          })
+        }
+      })
+    }
+
     const _updateWorksheetData = (supId, id, value) => {
       data.worksheetData.widgets.forEach((widget, index) => {
         if(supId === widget.id) {
           widget.childs.forEach((child, i) => {
             if(id === child.id) {
-              widget.value = value
+              widget.value = value;
               // delete
-              data.worksheetData.widgets[index].childs.splice(i, 1)
-              // insert
-              setTimeout(() => {
+              data.worksheetData.widgets[index].childs.splice(i, 1);
+              // set
+              nextTick(() => {
                 data.worksheetData.widgets[index].childs[i] = widget.value
-              })
+              });
             }
           })
         }
@@ -166,7 +220,10 @@ export default defineComponent({
         name: 'general',
         props: {}
       };
-      widget.value = { ...curWidget, parentId}
+      //
+      widget.value = { ...curWidget, parentId};
+      //
+      data.recordWidget = widget.value;
       // 
       obj.childs.push(widget.value);
       data.worksheetData.widgets.splice(newIndex, 0, obj); //
@@ -192,6 +249,7 @@ export default defineComponent({
     }
 
     const classOfAcol = (val) => {
+      console.log('val', val)
       const type = val.type;
       return [
         type === 'layout-form' || type === 'layout-grid' ? 'form-border' : 'border',
@@ -199,7 +257,8 @@ export default defineComponent({
         'flex-ali-cen',
         'h-46',
         'm-r-2',
-        'm-b-12'
+        'm-b-12',
+        { 'selected': data.recordWidget.id === val.id }
       ]
     }
 

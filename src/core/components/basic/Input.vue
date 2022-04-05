@@ -8,9 +8,10 @@
         :size="size" 
         :placeholder="placeholder"
         :auto-size="autoSize"
-        :disabled="!!disabled"
+        :disabled="disabled"
         :allowClear="allowClear"
         :style="styles"
+        :hidden="hidden"
         @change="handleChange"
       />
     </template>
@@ -20,7 +21,8 @@
         :defaultValue="defaultValue"
         :placeholder="placeholder"
         :auto-size="autoSize"
-        :disabled="!!disabled"
+        :disabled="disabled"
+        :hidden="hidden"
         :style="styles"
         @change="handleChange"
       />
@@ -100,6 +102,7 @@ export default defineComponent({
       autoSize: toRefs(data).autoSize,
       disabled: toRefs(data).disabled,
       allowClear: toRefs(data).allowClear,
+      hidden: toRefs(data).hidden,
       layouts: toRefs(data).layouts,
       styles: toRefs(data).styles,
       labelClass,

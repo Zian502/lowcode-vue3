@@ -6,13 +6,15 @@
       >
       <a-tab-pane v-for="item in mock.defaultList" :key="item.key" :tab="item.tab">
         <div class="tab-panel-content">
-          <template v-for="(item, index) in setters" :key="index">
-            <renderer 
-              :type="item.type" 
-              :globalOptions="worksheetData.options" 
-              :componentOptions="item" 
-              @change="handleChange"
-            />
+          <template v-for="(v, index) in setters" :key="index">
+            <template v-if="v.tabIndex === item.key">
+              <renderer 
+                :type="v.type" 
+                :globalOptions="worksheetData.options" 
+                :componentOptions="v" 
+                @change="handleChange"
+              />
+            </template>
           </template>
         </div>
       </a-tab-pane>
@@ -53,41 +55,32 @@ export default defineComponent({
       deep: true
     })
 
-    const handleChange = ({value, props, defaultList = []}={}) => {
+    const handleChange = ({value, props, defaultList}={}) => {
       console.log('value', value)
       console.log('props', props)
-      const setFieldsPath = props.setFieldsPath;
-      let handleSetFieldsPath = [];
-      let field = null;
-      if(Array.isArray(value) ){
-        if(Array.isArray(defaultList)){
-          defaultList.forEach((item) => {
-            handleSetFieldsPath.push({
-              fieldPath: item.value.fieldPath,
-              fieldValue: !item.value.fieldValue
-            })
-          });
-          handleSetFieldsPath = [...handleSetFieldsPath, ...value];
-        }
-      } 
-      console.log('handleSetFieldsPath', handleSetFieldsPath)
-      if(Array.isArray(setFieldsPath) && setFieldsPath.length > 1) {
-        handleSetFieldsPath.forEach((item, index) => {
-          store.setFieldValue({
-            [item.fieldPath]: item.fieldValue
-          });
-        })
-      } else if (Array.isArray(setFieldsPath) && setFieldsPath.length === 1) {
-        if(typeof value === 'object'){
-           store.setFieldValue({
-            [value.fieldPath]: value.fieldValue
-          });
+      const setterFieldsPath = props.compMock.setterFieldsPath;
+      setterFieldsPath.forEach((item) => {
+        if(Array.isArray(value)) {
+          if(defaultList.length > 0) {
+            defaultList.forEach((v)=> {
+              store.setFieldValue({
+                [v.value]: false
+              });
+            });
+          };
+          if(value.length > 0){
+              value.forEach((v) => {
+                store.setFieldValue({
+                  [v]: true
+              });
+            });
+          };
         } else {
           store.setFieldValue({
-            [setFieldsPath[0]]: value
+            [item.destFieldPath]: value
           });
         }
-      }
+      });
     }
 
     return {
@@ -106,6 +99,9 @@ export default defineComponent({
   background: #fff;
   .tab-panel-content{
     padding: 0 20px;
+  }
+  .renderer-container{
+    margin-bottom: 20px;
   }
 }
 </style>
