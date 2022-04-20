@@ -1,5 +1,5 @@
 # lowcode-vue3
-> 简易版低代码平台架子
+> 简易版低代码平台架子（仅供参考和学习）
 
 ## 在线Demo
 [Demo](https://zian502.github.io/lowcode-vue3/#/lowcode/worksheet)

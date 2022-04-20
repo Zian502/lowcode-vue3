@@ -26,9 +26,11 @@
                 :name="element.options.layouts.formItem.name"
                 :label="element.options.layouts.formItem.label"
                 :rules="element.options.layouts.formItem.rules"
-              >
+                >
                 <renderer layout="form" :type="element.type" :globalOptions="worksheetData.options" :componentOptions="element.options" />
               </a-form-item>
+              <!-- mask layer -->
+              <div class="mask-layer-container" @click="handleSelect(element)"></div>
             </a-col>
           </template>
         </draggable>
@@ -38,6 +40,9 @@
 <script lang="ts">
 import createReactive from '/@/core/utils/createReacitve'
 import draggable from "vuedraggable";
+import { useSchemesStore } from '/@/store/modules/scheme';
+
+const store = useSchemesStore();
 
 export default defineComponent({
   components: {
@@ -62,7 +67,9 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const { compProps, compMock } = props;
+    const { compProps, compMock, child } = props;
+
+    let recordWidget = ref([]);
     let data = createReactive({
       compProps,
       compMock,
@@ -71,6 +78,16 @@ export default defineComponent({
     const handleAdd = (e) => {
       console.log('add')
       console.log(e)
+      const curWidget = e.item._underlying_vm_;
+      recordWidget.value = {...curWidget, ...{ parentId: child.id }};
+      // set recordWidget
+      store.handleSetRecordWidget(recordWidget.value);
+    }
+
+    const handleSelect = (selectd) => {
+      recordWidget.value = selectd;
+      // set recordWidget
+      store.handleSetRecordWidget(recordWidget.value);
     }
 
     return {
@@ -86,6 +103,7 @@ export default defineComponent({
       wrap: toRefs(data).wrap,
       styles: toRefs(data).styles,
       handleAdd,
+      handleSelect,
     }
   },
 })

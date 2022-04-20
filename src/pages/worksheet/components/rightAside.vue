@@ -28,6 +28,7 @@ export default defineComponent({
           worksheetData.value = store.getWorksheetData
           setterData.value = store.getSetterData
           recordWidget.value = store.getRecordWidget
+          console.log('recordWidget', recordWidget)
         })
 
         onError(error => {

@@ -26,13 +26,13 @@
               <a-col :class="classOfAcol(child)" :span="worksheetData.layouts.props.span">
                 <renderer 
                   :type="child.type" 
-                  :worksheetData="worksheetData" 
+                  :worksheetData="worksheetData"
                   :child="child"
                   :globalOptions="worksheetData.options" 
                   :componentOptions="child.options" 
                   />
                   <!-- mask layer -->
-                  <div class="mask-layer-container"></div>
+                  <div v-if="child.type !== 'layout-form'" class="mask-layer-container" @click="handleSelect(child)"></div>
               </a-col>
             </template>
         </draggable>
@@ -92,16 +92,18 @@ export default defineComponent({
       }) => {
         after(result => {
           console.log('name', name)
+          data.recordWidget = store.getRecordWidget
           if(name === 'setFieldValue') {
-            data.recordWidget = store.getRecordWidget
             _updateWorksheetData(data.recordWidget.parentId, data.recordWidget.id, data.recordWidget)
           } else if (name === 'handleSetRecordWidget') {
             // update setters
             // clone deep
             setters.value = _cloneDeep(data.recordWidget.options.setters);
+            console.log('setters', setters)
+            console.log('data.recordWidget', data.recordWidget)
+            console.log('data.worksheetData', data.worksheetData)
             const setterFieldsPath = data.recordWidget.options.mock.setterFieldsPath || [];
             _updateRecordSetters(data.recordWidget.parentId, data.recordWidget.id, setterFieldsPath)
-            console.log('data.recordWidget', data.recordWidget)
           }
         })
 
@@ -228,7 +230,7 @@ export default defineComponent({
       obj.childs.push(widget.value);
       data.worksheetData.widgets.splice(newIndex, 0, obj); //
       // set recordWidget
-      store.handleSetRecordWidget(widget.value);
+      store.handleSetRecordWidget(data.recordWidget);
       _deleteNode();
     }
 
@@ -249,7 +251,6 @@ export default defineComponent({
     }
 
     const classOfAcol = (val) => {
-      console.log('val', val)
       const type = val.type;
       return [
         type === 'layout-form' || type === 'layout-grid' ? 'form-border' : 'border',
@@ -261,6 +262,12 @@ export default defineComponent({
         { 'selected': data.recordWidget.id === val.id }
       ]
     }
+    
+    const handleSelect = (selectd) => {
+      data.recordWidget = selectd;
+      // set recordWidget
+      store.handleSetRecordWidget(data.recordWidget);
+    }
 
     return {
       ...toRefs(data),
@@ -271,6 +278,7 @@ export default defineComponent({
       handleChildAdd,
       handleChildEnd,
       classOfAcol,
+      handleSelect,
     }
   },
 })
